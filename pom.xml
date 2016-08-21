@@ -6,7 +6,12 @@
 
     <groupId>com.jukusoft</groupId>
     <artifactId>prototyp-2d-renderer</artifactId>
+    <packaging>pom</packaging>
     <version>1.0.0-SNAPSHOT</version>
+    <modules>
+        <module>prototyp-game-engine</module>
+        <module>protptyp-renderer-main</module>
+    </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
