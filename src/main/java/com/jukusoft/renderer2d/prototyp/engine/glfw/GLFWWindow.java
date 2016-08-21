@@ -151,10 +151,21 @@ public class GLFWWindow implements IWindow {
     }
 
     /**
-    * get id of monitor on which window is shown
+    * get GLFW id of monitor on which window is shown
+     *
+     * @return GLFW id of monitor
     */
     public long getMonitorID () {
         return glfwGetWindowMonitor(this.window);
+    }
+
+    /**
+    * get GLFW id of window
+     *
+     * @return GLFW id of window
+    */
+    public long getWindowID () {
+        return this.window;
     }
 
     @Override
