@@ -111,6 +111,11 @@ public interface IWindow {
     public void swap ();
 
     /**
+    * poll input events
+    */
+    public void processInput ();
+
+    /**
     * close window
     */
     public void close ();

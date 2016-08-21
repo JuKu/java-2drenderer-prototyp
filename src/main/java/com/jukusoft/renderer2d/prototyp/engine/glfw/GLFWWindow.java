@@ -286,6 +286,13 @@ public class GLFWWindow implements IWindow {
         glfwSwapBuffers(this.window);
     }
 
+    @Override
+    public void processInput() {
+        // Poll for window events. The key callback above will only be
+        // invoked during this call.
+        glfwPollEvents();
+    }
+
     protected void callKeyCallbacks (long window, int key, int scancode, int action, int mods) {
         //check, if key was pressed
         if (action == GLFW_PRESS) {

@@ -57,6 +57,9 @@ public class Main {
         //show window
         window.setVisible(true);
 
+        //prepare rendering and create GL capabilities like GL.createCapabilities()
+        window.prepareRendering();
+
         //renderer loop
         while (!window.shouldClose()) {
             //clear framebuffer
@@ -65,10 +68,11 @@ public class Main {
             //swap back and front buffers
             window.swap();
 
-            // Poll for window events. The key callback above will only be
-            // invoked during this call.
-            glfwPollEvents();
+            //process input events and call callbacks
+            window.processInput();
         }
+
+        Logger.getRootLogger().info("window was closed by user.");
 
         //close window
         window.destroy();
