@@ -1,4 +1,4 @@
-package com.jukusoft.renderer2d.prototyp.glfw;
+package com.jukusoft.renderer2d.prototyp.engine.glfw;
 
 import org.lwjgl.glfw.GLFWErrorCallback;
 
