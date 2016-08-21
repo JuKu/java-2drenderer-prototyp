@@ -11,5 +11,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: org.lwjgl:lwjgl:3.0.0" level="project" />
+    <orderEntry type="library" name="Maven: org.lwjgl:lwjgl-platform:natives-windows:3.0.0" level="project" />
   </component>
 </module>
