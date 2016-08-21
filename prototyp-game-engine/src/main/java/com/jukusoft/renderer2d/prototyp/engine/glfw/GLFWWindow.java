@@ -17,6 +17,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -52,6 +53,11 @@ public class GLFWWindow implements IWindow {
     protected GLFWKeyCallback keyCallback = null;
 
     /**
+    * window resize callback to process window resize events
+    */
+    protected GLFWWindowSizeCallback windowSizeCallback = null;
+
+    /**
     * list with key callbacks
     */
     protected List<KeyCallback> keyCallbackList = new ArrayList<>();
@@ -60,6 +66,11 @@ public class GLFWWindow implements IWindow {
     * true, if application should exit if window close button was pressed
     */
     protected AtomicBoolean exitOnClose = new AtomicBoolean(false);
+
+    /**
+    * flag if window was resized
+    */
+    protected AtomicBoolean wasResized = new AtomicBoolean(false);
 
     public GLFWWindow (int width, int height, String title) {
         this.width = width;
@@ -114,6 +125,16 @@ public class GLFWWindow implements IWindow {
 
                 //call key callbacks
                 callKeyCallbacks(window, key, scancode, action, mods);
+            }
+        });
+
+        // Setup resize callback
+        glfwSetWindowSizeCallback(this.window, windowSizeCallback = new GLFWWindowSizeCallback() {
+            @Override
+            public void invoke(long window, int width, int height) {
+                GLFWWindow.this.width = width;
+                GLFWWindow.this.height = height;
+                GLFWWindow.this.wasResized.set(true);
             }
         });
 
@@ -173,6 +194,34 @@ public class GLFWWindow implements IWindow {
     public void setSize (int width, int height) {
         //set window size
         glfwSetWindowSize(this.window, width, height);
+    }
+
+    @Override
+    public int getWidth() {
+        //create integer buffer to get width and height
+        /*IntBuffer widthBuffer = IntBuffer.allocate(1);
+        IntBuffer heightBuffer = IntBuffer.allocate(1);
+
+        //get window size
+        glfwGetWindowSize(this.window, widthBuffer, heightBuffer);
+
+        return widthBuffer.get();*/
+
+        return this.width;
+    }
+
+    @Override
+    public int getHeight() {
+        //create integer buffer to get width and height
+        /*IntBuffer widthBuffer = IntBuffer.allocate(1);
+        IntBuffer heightBuffer = IntBuffer.allocate(1);
+
+        //get window size
+        glfwGetWindowSize(this.window, widthBuffer, heightBuffer);
+
+        return heightBuffer.get();*/
+
+        return this.height;
     }
 
     @Override
@@ -275,6 +324,16 @@ public class GLFWWindow implements IWindow {
     @Override
     public boolean shouldClose() {
         return glfwWindowShouldClose(this.window);
+    }
+
+    @Override
+    public boolean wasResized() {
+        return this.wasResized.get();
+    }
+
+    @Override
+    public void setResizedFlag(boolean resized) {
+        this.wasResized.set(resized);
     }
 
     @Override

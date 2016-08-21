@@ -2,6 +2,7 @@ package com.jukusoft.renderer2d.prototyp;
 
 import com.jukusoft.renderer2d.prototyp.engine.app.SimpleGameApp;
 import com.jukusoft.renderer2d.prototyp.engine.window.IWindow;
+import org.apache.log4j.Logger;
 
 /**
  * Created by Justin on 21.08.2016.
@@ -30,6 +31,16 @@ public class MySimpleGameApp extends SimpleGameApp {
     @Override
     public void render() {
         //TODO: render window
+
+        //check, if window was resized
+        if (this.wasResized()) {
+            //window was resized
+
+            Logger.getRootLogger().info("window was resized, new width: " + getWindow().getWidth() + ", new height: " + getWindow().getHeight());
+
+            //reset resized flag
+            this.setResizedFlag(false);
+        }
     }
 
 }

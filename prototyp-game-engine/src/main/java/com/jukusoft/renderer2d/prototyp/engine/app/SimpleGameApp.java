@@ -180,6 +180,14 @@ public abstract class SimpleGameApp {
         return this.window;
     }
 
+    public boolean wasResized () {
+        return this.getWindow().wasResized();
+    }
+
+    public void setResizedFlag (boolean resized) {
+        this.getWindow().setResizedFlag(resized);
+    }
+
     protected abstract void onCreateWindow (IWindow window);
 
     /**

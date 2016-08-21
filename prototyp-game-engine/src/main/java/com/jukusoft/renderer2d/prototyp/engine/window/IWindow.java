@@ -37,6 +37,20 @@ public interface IWindow {
     public void setSize (int width, int height);
 
     /**
+    * get width of window
+     *
+     * @return width of window in pixel
+    */
+    public int getWidth ();
+
+    /**
+     * get height of window
+     *
+     * @return height of window in pixel
+     */
+    public int getHeight ();
+
+    /**
     * set minimum size of window
      *
      * @param width minimum width of window
@@ -97,6 +111,18 @@ public interface IWindow {
      * @return true, if window should be closed
     */
     public boolean shouldClose ();
+
+    /**
+    * returns true, if window was resized
+    */
+    public boolean wasResized ();
+
+    /**
+    * set resized flag of window
+     *
+     * @param resized resized flag, true if window was resized
+    */
+    public void setResizedFlag (boolean resized);
 
     /**
     * set to true, if window should exit, when exit button in window was pressed
