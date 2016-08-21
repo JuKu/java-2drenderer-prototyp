@@ -6,6 +6,10 @@ import com.jukusoft.renderer2d.prototyp.engine.window.IWindow;
 import com.jukusoft.renderer2d.prototyp.engine.window.callback.AbstractKeyCallback;
 import org.apache.log4j.Logger;
 
+import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.glClear;
+import static org.lwjgl.opengles.GLES20.GL_COLOR_BUFFER_BIT;
+
 /**
  * Created by Justin on 21.08.2016.
  */
@@ -33,7 +37,7 @@ public abstract class SimpleGameApp {
 
     public void start () {
         //create new GLFW window
-        this.window = new GLFWWindow(600, 400, "Window title");
+        this.window = new GLFWWindow(600, 400, "Simple Game App");
         this.window.create();
 
         this.onCreateWindow(window);
@@ -59,10 +63,39 @@ public abstract class SimpleGameApp {
                 return true;
             }
         });
+
+        //show window
+        window.setVisible(true);
+
+        //prepare rendering and create GL capabilities like GL.createCapabilities()
+        window.prepareRendering();
+
+        //renderer loop
+        while (!window.shouldClose()) {
+            //clear framebuffer
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+            //swap back and front buffers
+            window.swap();
+
+            //process input events and call callbacks
+            window.processInput();
+        }
+
+        Logger.getRootLogger().info("window was closed by user.");
+
+        this.shutdown();
     }
 
     public void shutdown () {
-        //
+        //close window
+        this.window.close();
+
+        //log message
+        Logger.getRootLogger().info("shutdown GLFW now.");
+
+        //shutdown GLFW
+        GLFWUtils.shutdownGLFW();
     }
 
     public IWindow getWindow () {
