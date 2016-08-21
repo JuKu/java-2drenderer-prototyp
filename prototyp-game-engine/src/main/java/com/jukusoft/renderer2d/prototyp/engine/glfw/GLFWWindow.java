@@ -307,7 +307,7 @@ public class GLFWWindow implements IWindow {
             //iterate through key callbacks
             for (KeyCallback callback : this.keyCallbackList) {
                 //call key callback, if return value if false, dont execute other key callbacks
-                if (!callback.keyPressed(key)) {
+                if (!callback.keyReleased(key)) {
                     break;
                 }
             }
