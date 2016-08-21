@@ -17,6 +17,8 @@
 
         <!-- LWJGL version -->
         <lwjgl.version>3.0.0</lwjgl.version>
+
+        <log4j.version>1.2.17</log4j.version>
     </properties>
 
     <dependencies>
@@ -33,6 +35,13 @@
             <artifactId>lwjgl-platform</artifactId>
             <version>${lwjgl.version}</version>
             <classifier>${native.target}</classifier>
+        </dependency>
+
+        <!-- Log4j -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
         </dependency>
     </dependencies>
 
