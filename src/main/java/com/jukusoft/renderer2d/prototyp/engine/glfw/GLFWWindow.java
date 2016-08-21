@@ -20,14 +20,24 @@ import java.nio.ByteBuffer;
  */
 public class GLFWWindow implements IWindow {
 
-    protected int width = 0;
-    protected int height = 0;
+    protected int width = 600;
+    protected int height = 400;
     protected String title = "";
+
+    protected int minWidth = GLFW_DONT_CARE;
+    protected int maxWidth = GLFW_DONT_CARE;
+    protected int minHeight = GLFW_DONT_CARE;
+    protected int maxHeight = GLFW_DONT_CARE;
 
     /**
     * GLFW window id
     */
     protected long window = 0l;
+
+    /**
+    * GLFW monitor id on which window is shown
+    */
+    protected long monitor = 0l;
 
     public GLFWWindow (int width, int height, String title) {
         this.width = width;
@@ -48,8 +58,11 @@ public class GLFWWindow implements IWindow {
         //set window resizeable
         glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
 
+        //set monitor to primary monitor, if monitor != NULL window will be shown in fullscreen mode
+        this.monitor = NULL;//glfwGetPrimaryMonitor();
+
         //create GLFW window
-        this.window = glfwCreateWindow(this.width, this.width, this.title, NULL, NULL);
+        this.window = glfwCreateWindow(this.width, this.width, this.title, this.monitor, NULL);
 
         //check, if error occours while creating window
         if (window == NULL) {
@@ -71,9 +84,6 @@ public class GLFWWindow implements IWindow {
 
         // Enable v-sync
         glfwSwapInterval(1);
-
-        //show window
-        this.setVisible(true);
     }
 
     /**
@@ -115,6 +125,36 @@ public class GLFWWindow implements IWindow {
     public void setSize (int width, int height) {
         //set window size
         glfwSetWindowSize(this.window, width, height);
+    }
+
+    @Override
+    public void setMinSize(int width, int height) {
+        this.minWidth = width;
+        this.minHeight = height;
+
+        this.updateMinAndMaxSize();
+    }
+
+    @Override
+    public void setMaxSize(int width, int height) {
+        this.maxWidth = width;
+        this.maxHeight = height;
+
+        this.updateMinAndMaxSize();
+    }
+
+    /**
+    * update minimum and maximum window size
+    */
+    private void updateMinAndMaxSize () {
+        glfwSetWindowSizeLimits(this.window, this.minWidth, this.minHeight, this.maxWidth, this.maxHeight);
+    }
+
+    /**
+    * get id of monitor on which window is shown
+    */
+    public long getMonitorID () {
+        return glfwGetWindowMonitor(this.window);
     }
 
     @Override

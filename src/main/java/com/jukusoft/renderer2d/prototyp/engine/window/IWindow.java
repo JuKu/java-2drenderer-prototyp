@@ -35,6 +35,22 @@ public interface IWindow {
     public void setSize (int width, int height);
 
     /**
+    * set minimum size of window
+     *
+     * @param width minimum width of window
+     * @param height minimum height of window
+    */
+    public void setMinSize (int width, int height);
+
+    /**
+     * set maximum size of window
+     *
+     * @param width maximum width of window
+     * @param height maximum height of window
+     */
+    public void setMaxSize (int width, int height);
+
+    /**
     * set window position
     */
     public void setPosition (int x, int y);

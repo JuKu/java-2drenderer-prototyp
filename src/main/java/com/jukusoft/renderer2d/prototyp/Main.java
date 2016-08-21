@@ -25,6 +25,15 @@ public class Main {
         IWindow window = new GLFWWindow(600, 400, "Window title");
         window.create();
 
+        //set window title
+        window.setTitle("Window Title");
+
+        //set window size
+
+
+        //show window
+        window.setVisible(true);
+
         //TODO: add code here
 
         try {
@@ -33,6 +42,9 @@ public class Main {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        //close window
+        window.destroy();
 
         //log message
         Logger.getRootLogger().info("shutdown GLFW now.");
