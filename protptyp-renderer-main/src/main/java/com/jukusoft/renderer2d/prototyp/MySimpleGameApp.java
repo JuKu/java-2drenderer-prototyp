@@ -18,7 +18,7 @@ public class MySimpleGameApp extends SimpleGameApp {
     }
 
     @Override
-    public void update() {
+    public void update(double delta) {
         //TODO: update game state
     }
 
