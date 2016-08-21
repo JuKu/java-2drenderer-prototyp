@@ -18,6 +18,11 @@ public class MySimpleGameApp extends SimpleGameApp {
     }
 
     @Override
+    protected void onInit() {
+        //TODO: initialize game
+    }
+
+    @Override
     public void update(double delta) {
         //TODO: update game state
     }

@@ -92,6 +92,9 @@ public abstract class SimpleGameApp {
         //prepare rendering and create GL capabilities like GL.createCapabilities()
         window.prepareRendering();
 
+        //initialize game
+        this.onInit();
+
         //start renderer and gameloop
         if (!this.useMultiThreading) {
             Logger.getRootLogger().info("multi threading for game engine isnt enabled, use only one thread to update and render game.");
@@ -178,6 +181,11 @@ public abstract class SimpleGameApp {
     }
 
     protected abstract void onCreateWindow (IWindow window);
+
+    /**
+    * will be called if app is initializing game
+    */
+    protected abstract void onInit ();
 
     /**
     * update game state
