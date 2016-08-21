@@ -65,6 +65,8 @@ public class GLFWWindow implements IWindow {
         this.width = width;
         this.height = height;
         this.title = title;
+
+        //http://www.glfw.org/docs/latest/group__window.html
     }
 
     @Override

@@ -2,9 +2,12 @@ package com.jukusoft.renderer2d.prototyp.engine.app;
 
 import com.jukusoft.renderer2d.prototyp.engine.glfw.GLFWUtils;
 import com.jukusoft.renderer2d.prototyp.engine.glfw.GLFWWindow;
+import com.jukusoft.renderer2d.prototyp.engine.utils.GamePlatform;
 import com.jukusoft.renderer2d.prototyp.engine.window.IWindow;
 import com.jukusoft.renderer2d.prototyp.engine.window.callback.AbstractKeyCallback;
 import org.apache.log4j.Logger;
+
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.glClear;
@@ -21,10 +24,29 @@ public abstract class SimpleGameApp {
     protected IWindow window = null;
 
     /**
-    * default constructor
+    * flag, if multi threading should be used and
     */
+    protected final boolean useMultiThreading;
+
+    /**
+    * exit flag
+    */
+    protected AtomicBoolean exitFlag = new AtomicBoolean(false);
+
+    /**
+    * default constructor
+     *
+     * @param useMultiThreading true, if updates should be executed in extra update thread
+    */
+    public SimpleGameApp (boolean useMultiThreading) {
+        this.useMultiThreading = useMultiThreading;
+    }
+
+    /**
+     * default constructor
+     */
     public SimpleGameApp () {
-        //
+        this.useMultiThreading = true;
     }
 
     public void init () {
@@ -70,21 +92,74 @@ public abstract class SimpleGameApp {
         //prepare rendering and create GL capabilities like GL.createCapabilities()
         window.prepareRendering();
 
-        //renderer loop
-        while (!window.shouldClose()) {
-            //clear framebuffer
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        //start renderer and gameloop
+        if (!this.useMultiThreading) {
+            Logger.getRootLogger().info("multi threading for game engine isnt enabled, use only one thread to update and render game.");
 
-            //swap back and front buffers
-            window.swap();
+            //renderer loop
+            while (!window.shouldClose()) {
+                //process input events and call callbacks
+                window.processInput();
 
-            //process input events and call callbacks
-            window.processInput();
+                //update game state
+                this.update();
+
+                //execute tasks which should be executed in update thread
+                GamePlatform.executeUpdateQueue();
+
+                //clear framebuffer
+                glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+                //render
+                this.render();
+
+                //swap back and front buffers
+                window.swap();
+
+                //execute tasks which should be executed in ui thread
+                GamePlatform.executeUIQueue();
+            }
+        } else {
+            Logger.getRootLogger().info("multi threading for game engine is enabled, create new thread for gameloop.");
+
+            //create new thread for updates
+            this.createUpdateThread();
+
+            //renderer loop
+            while (!window.shouldClose()) {
+                //process input events and call callbacks
+                window.processInput();
+
+                //clear framebuffer
+                glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+                //render
+                this.render();
+
+                //swap back and front buffers
+                window.swap();
+
+                //execute tasks which should be executed in ui thread
+                GamePlatform.executeUIQueue();
+            }
         }
 
         Logger.getRootLogger().info("window was closed by user.");
 
         this.shutdown();
+    }
+
+    protected void createUpdateThread () {
+        Thread updateThread = new Thread(() -> {
+            //start gameloop
+            while (!exitFlag.get()) {
+                //update game
+                update();
+
+                //execute tasks which should be executed in update thread
+                GamePlatform.executeUpdateQueue();
+            }
+        });
     }
 
     public void shutdown () {
