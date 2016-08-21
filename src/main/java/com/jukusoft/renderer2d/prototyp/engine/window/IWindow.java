@@ -1,5 +1,7 @@
 package com.jukusoft.renderer2d.prototyp.engine.window;
 
+import com.jukusoft.renderer2d.prototyp.engine.window.callback.KeyCallback;
+
 import java.io.IOException;
 
 /**
@@ -69,6 +71,25 @@ public interface IWindow {
     * set default window icon
     */
     public void setDefaultIcon ();
+
+    /**
+    * add an key callback which is called, if key was pressed or released
+     *
+     * @param callback key callback
+    */
+    public void addKeyCallback (KeyCallback callback);
+
+    /**
+     * remove key callback
+     *
+     * @param callback key callback
+     */
+    public void removeKeyCallback (KeyCallback callback);
+
+    /**
+    * close window
+    */
+    public void close ();
 
     /**
     * destroy window
