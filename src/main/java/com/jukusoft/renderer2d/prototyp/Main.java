@@ -8,6 +8,11 @@ import com.jukusoft.renderer2d.prototyp.engine.window.callback.KeyCallback;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 
+import static org.lwjgl.glfw.GLFW.glfwPollEvents;
+import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.glClear;
+import static org.lwjgl.opengles.GLES20.GL_COLOR_BUFFER_BIT;
+
 /**
  * Created by Justin on 21.08.2016.
  */
@@ -52,13 +57,17 @@ public class Main {
         //show window
         window.setVisible(true);
 
-        //TODO: add code here
+        //renderer loop
+        while (!window.shouldClose()) {
+            //clear framebuffer
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        try {
-            //wait 5 seconds
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            //swap back and front buffers
+            window.swap();
+
+            // Poll for window events. The key callback above will only be
+            // invoked during this call.
+            glfwPollEvents();
         }
 
         //close window
