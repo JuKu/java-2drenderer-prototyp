@@ -87,6 +87,30 @@ public interface IWindow {
     public void removeKeyCallback (KeyCallback callback);
 
     /**
+    * prepare rendering of window
+    */
+    public void prepareRendering ();
+
+    /**
+    * check, if window should be closed
+     *
+     * @return true, if window should be closed
+    */
+    public boolean shouldClose ();
+
+    /**
+    * set to true, if window should exit, when exit button in window was pressed
+     *
+     * @param exitOnClose true, if window should exit, when exit button in window was pressed
+    */
+    public void setExitOnClose (boolean exitOnClose);
+
+    /**
+    * swap buffers
+    */
+    public void swap ();
+
+    /**
     * close window
     */
     public void close ();

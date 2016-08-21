@@ -3,12 +3,14 @@ package com.jukusoft.renderer2d.prototyp.engine.glfw;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.GL_FALSE;
 import static org.lwjgl.opengl.GL11.GL_TRUE;
+import static org.lwjgl.opengl.GL11.glClearColor;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 import com.jukusoft.renderer2d.prototyp.engine.utils.ImageUtils;
 import com.jukusoft.renderer2d.prototyp.engine.window.IWindow;
 import com.jukusoft.renderer2d.prototyp.engine.window.callback.KeyCallback;
 import org.lwjgl.glfw.*;
+import org.lwjgl.opengl.GL;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -18,6 +20,7 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Created by Justin on 21.08.2016.
@@ -52,6 +55,11 @@ public class GLFWWindow implements IWindow {
     * list with key callbacks
     */
     protected List<KeyCallback> keyCallbackList = new ArrayList<>();
+
+    /**
+    * true, if application should exit if window close button was pressed
+    */
+    protected AtomicBoolean exitOnClose = new AtomicBoolean(false);
 
     public GLFWWindow (int width, int height, String title) {
         this.width = width;
@@ -90,8 +98,16 @@ public class GLFWWindow implements IWindow {
                 if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE) {
                     glfwSetWindowShouldClose(window, true); //we will detect this in our rendering loop
 
-                    //close and destroy window
-                    GLFWWindow.this.close();
+                    if (exitOnClose.get()) {
+                        //close and destroy window
+                        GLFWWindow.this.close();
+
+                        //cleanup GLFW
+                        GLFWUtils.shutdownGLFW();
+
+                        //exit
+                        System.exit(0);
+                    }
                 }
 
                 //call key callbacks
@@ -237,6 +253,37 @@ public class GLFWWindow implements IWindow {
     public void removeKeyCallback(KeyCallback callback) {
         //remove callback from list
         Collections.synchronizedCollection(this.keyCallbackList).remove(callback);
+    }
+
+    @Override
+    public void prepareRendering() {
+        // This line is critical for LWJGL's interoperation with GLFW's
+        // OpenGL context, or any context that is managed externally.
+        // LWJGL detects the context that is current in the current thread,
+        // creates the ContextCapabilities instance and makes the OpenGL
+        // bindings available for use.
+
+        //see https://github.com/lwjglgamedev/lwjglbook/blob/master/chapter01/src/main/java/org/lwjglb/game/Main.java
+        GL.createCapabilities();
+
+        // Set the clear color
+        glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
+    }
+
+    @Override
+    public boolean shouldClose() {
+        return glfwWindowShouldClose(this.window);
+    }
+
+    @Override
+    public void setExitOnClose(boolean exitOnClose) {
+        this.exitOnClose.set(exitOnClose);
+    }
+
+    @Override
+    public void swap() {
+        //swap back and front buffer
+        glfwSwapBuffers(this.window);
     }
 
     protected void callKeyCallbacks (long window, int key, int scancode, int action, int mods) {
