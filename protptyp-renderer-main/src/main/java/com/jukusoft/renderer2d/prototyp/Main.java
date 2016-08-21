@@ -22,66 +22,14 @@ public class Main {
         //configure log4j to log to console
         BasicConfigurator.configure();
 
-        //log message
-        Logger.getRootLogger().info("initialize GLFW now.");
+        //create new instance of game
+        MySimpleGameApp app = new MySimpleGameApp();
 
-        //initialize GLFW
-        GLFWUtils.init();
+        //initialize game
+        app.init();
 
-        //create new GLFW window
-        IWindow window = new GLFWWindow(600, 400, "Window title");
-        window.create();
-
-        //set window title
-        window.setTitle("Window Title");
-
-        //set key callback
-        window.addKeyCallback(new AbstractKeyCallback() {
-            @Override
-            public boolean keyPressed(int key) {
-                Logger.getRootLogger().info("key pressed.");
-
-                //execute other callbacks
-                return true;
-            }
-
-            @Override
-            public boolean keyReleased(int key) {
-                Logger.getRootLogger().info("key released.");
-
-                //execute other callbacks
-                return true;
-            }
-        });
-
-        //show window
-        window.setVisible(true);
-
-        //prepare rendering and create GL capabilities like GL.createCapabilities()
-        window.prepareRendering();
-
-        //renderer loop
-        while (!window.shouldClose()) {
-            //clear framebuffer
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-            //swap back and front buffers
-            window.swap();
-
-            //process input events and call callbacks
-            window.processInput();
-        }
-
-        Logger.getRootLogger().info("window was closed by user.");
-
-        //close window
-        window.destroy();
-
-        //log message
-        Logger.getRootLogger().info("shutdown GLFW now.");
-
-        //shutdown GLFW
-        GLFWUtils.shutdownGLFW();
+        //start game
+        app.start();
     }
 
 }
