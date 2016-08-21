@@ -102,7 +102,7 @@ public abstract class SimpleGameApp {
                 window.processInput();
 
                 //update game state
-                this.update(0);
+                this.update(1);
 
                 //execute tasks which should be executed in update thread
                 GamePlatform.executeUpdateQueue();
@@ -154,7 +154,7 @@ public abstract class SimpleGameApp {
             //start gameloop
             while (!exitFlag.get()) {
                 //update game
-                update(0);
+                update(1);
 
                 //execute tasks which should be executed in update thread
                 GamePlatform.executeUpdateQueue();
