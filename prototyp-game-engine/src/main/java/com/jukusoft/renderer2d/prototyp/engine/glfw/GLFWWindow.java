@@ -377,6 +377,9 @@ public class GLFWWindow implements IWindow {
 
     @Override
     public void close() {
+        //set window should close flag to true
+        glfwSetWindowShouldClose(this.window, true);
+
         //TODO: call close listeners
 
         this.destroy();
