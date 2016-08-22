@@ -237,35 +237,21 @@ public abstract class SimpleGameApp {
             /**
              * for updates per second execution
              */
-            //float lastUpdateTime = System.nanoTime();
-            //float interval = 1f / this.targetUPS.get();
-            //float accumulator = 0f;
-
-            //double accumulator = 0.0;
-            //double updateDelta = (1.0 / this.targetUPS.get()) * 1_000_000_000;
-
-            double lastExecution = System.nanoTime();
-            double lastExecutionInSeconds = lastExecution / 1000_000_000d;
-
-            double targetElapsedTime = 1.0 / this.targetUPS.get();
-
-            //1000_000_000ns = 1 second
-
-            double waitTimeOverflow = 0d;
-
             int lastSecond = 0;
             int currentSecond = 0;
             int upsCounter = 0;
 
+            float elapsedTime;
+            float accumulator = 0f;
+            float interval = 1f / this.targetUPS.get();
+
             //start gameloop
             while (!exitFlag.get() && !Thread.currentThread().isInterrupted()) {
                 if (this.useUPS.get()) {
-                    double currentTime = System.nanoTime();
-                    double elapsed = currentTime - lastExecution;
-                    lastExecution = currentTime;
+                    elapsedTime = upsTimer.getElapsedTime();
+                    accumulator += elapsedTime;
 
-                    double elapsedTimeInSeconds = elapsed / 1000000000d;
-
+                    //get current second for ups calculation
                     currentSecond = (int) System.currentTimeMillis() / 1000;
 
                     //check, if its the same second
@@ -283,42 +269,18 @@ public abstract class SimpleGameApp {
                         upsCounter = 0;
                     }
 
-                    //increment updates per second counter
-                    upsCounter++;
-
-                    /*accumulator += elapsed;
-
                     while (accumulator >= interval) {
+                        //update game state
                         updateGame(interval);
+
                         accumulator -= interval;
-                    }*/
 
-                    //Logger.getRootLogger().debug("elapsed: " + elapsedTimeInSeconds + "ns, targetElapsedTime: " + targetElapsedTime + ", wait time: " + (targetElapsedTime - elapsedTimeInSeconds));
+                        //increment updates per second counter
+                        upsCounter++;
+                    }
 
-                    updateGame(this.targetUPS.get());
-
-                    /*while (currentTime + interval > System.nanoTime()) {
-                        Logger.getRootLogger().debug("wait");
-
-                        try {
-                            Thread.sleep(1);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }*/
-
-                    double waitTimeInNs = targetElapsedTime - elapsedTimeInSeconds;
-                    int waitTimeInMs = (int) Math.round((waitTimeInNs + waitTimeOverflow) / 1_000_000);
-
-                    waitTimeOverflow = waitTimeInNs - Math.round(waitTimeInNs / 1_000_000) * 1_000_000;
-
-                    /*try {
-                        //Logger.getRootLogger().debug("wait " + waitTimeInMs + "ms, " + waitTimeInNs + "ns, overflow: " + waitTimeOverflow);
-
-                        Thread.sleep(waitTimeInMs);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }*/
+                    //wait
+                    syncUPS(upsTimer.getLastLoopExecutionTime());
                 } else {
                     updateGame(1);
                 }
@@ -332,6 +294,16 @@ public abstract class SimpleGameApp {
 
         //start thread
         updateThread.start();
+    }
+
+    private void syncUPS(double loopStartTime) {
+        float loopSlot = 1f / 50;
+        double endTime = loopStartTime + loopSlot;
+        while(upsTimer.getTime() < endTime) {
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException ie) {}
+        }
     }
 
     private final void updateGame (double delta) {
