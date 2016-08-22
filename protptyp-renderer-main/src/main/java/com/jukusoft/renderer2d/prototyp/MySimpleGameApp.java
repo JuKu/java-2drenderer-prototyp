@@ -19,7 +19,7 @@ public class MySimpleGameApp extends SimpleGameApp {
     }
 
     @Override
-    protected void onInit() {
+    protected void initialize() {
         //TODO: initialize game
     }
 

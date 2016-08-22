@@ -93,7 +93,7 @@ public abstract class SimpleGameApp {
         window.prepareRendering();
 
         //initialize game
-        this.onInit();
+        this.initialize();
 
         //start renderer and gameloop
         if (!this.useMultiThreading) {
@@ -193,7 +193,7 @@ public abstract class SimpleGameApp {
     /**
     * will be called if app is initializing game
     */
-    protected abstract void onInit ();
+    protected abstract void initialize();
 
     /**
     * update game state
