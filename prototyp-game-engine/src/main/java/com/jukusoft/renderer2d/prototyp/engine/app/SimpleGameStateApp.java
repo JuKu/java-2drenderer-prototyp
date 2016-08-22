@@ -59,8 +59,6 @@ public abstract class SimpleGameStateApp<T extends GameState> extends SimpleGame
         if (this.wasResized()) {
             //window was resized
 
-            Logger.getRootLogger().info("window was resized, new width: " + getWindow().getWidth() + ", new height: " + getWindow().getHeight());
-
             //reset resized flag
             this.setResizedFlag(false);
 
