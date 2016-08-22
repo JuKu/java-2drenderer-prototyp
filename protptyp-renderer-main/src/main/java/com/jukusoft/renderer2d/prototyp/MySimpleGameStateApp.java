@@ -12,8 +12,8 @@ import com.jukusoft.renderer2d.prototyp.gamestate.IntroGameState;
  */
 public class MySimpleGameStateApp extends SimpleGameStateApp<GameState> {
 
-    public MySimpleGameStateApp(boolean useMultiThreading, int fixedFPS, int fixedUPS) {
-        super(useMultiThreading, fixedFPS, fixedUPS);
+    public MySimpleGameStateApp(boolean useMultiThreading, int fixedFPS, int fixedUPS, boolean vSync) {
+        super(useMultiThreading, fixedFPS, fixedUPS, vSync);
     }
 
     @Override

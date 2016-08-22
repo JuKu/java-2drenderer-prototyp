@@ -18,7 +18,7 @@ public class GLFWWindowTest {
         GLFWUtils.init();
 
         //create new window
-        IWindow window = new GLFWWindow(600, 400, "window title");
+        IWindow window = new GLFWWindow(600, 400, "window title", false);
 
         //create window
         window.create();
@@ -33,7 +33,7 @@ public class GLFWWindowTest {
     @Test(expected = RuntimeException.class)
     public void testForRuntimeException () {
         //create new window
-        IWindow window = new GLFWWindow(600, 400, "window title");
+        IWindow window = new GLFWWindow(600, 400, "window title", false);
 
         //create window
         window.create();

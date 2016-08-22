@@ -72,10 +72,16 @@ public class GLFWWindow implements IWindow {
     */
     protected AtomicBoolean wasResized = new AtomicBoolean(false);
 
-    public GLFWWindow (int width, int height, String title) {
+    /**
+    * flag for v sync
+    */
+    protected AtomicBoolean vSync = new AtomicBoolean(false);
+
+    public GLFWWindow (int width, int height, String title, boolean vSync) {
         this.width = width;
         this.height = height;
         this.title = title;
+        this.vSync.set(vSync);
 
         //http://www.glfw.org/docs/latest/group__window.html
     }
@@ -151,8 +157,11 @@ public class GLFWWindow implements IWindow {
         //make the OpenGL context current
         glfwMakeContextCurrent(this.window);
 
-        // Enable v-sync
-        glfwSwapInterval(1);
+        //check if vsync should be enabled
+        if (this.vSync.get()) {
+            // Enable v-sync
+            glfwSwapInterval(1);
+        }
     }
 
     /**
@@ -339,6 +348,16 @@ public class GLFWWindow implements IWindow {
     @Override
     public void setExitOnClose(boolean exitOnClose) {
         this.exitOnClose.set(exitOnClose);
+    }
+
+    @Override
+    public boolean isVSync() {
+        return this.vSync.get();
+    }
+
+    @Override
+    public void setVSync(boolean vsync) {
+        this.vSync.set(vsync);
     }
 
     @Override

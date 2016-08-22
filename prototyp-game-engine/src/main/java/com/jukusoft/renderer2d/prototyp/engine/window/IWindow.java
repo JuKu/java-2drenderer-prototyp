@@ -132,6 +132,20 @@ public interface IWindow {
     public void setExitOnClose (boolean exitOnClose);
 
     /**
+    * get flag, if vSync is enabled
+     *
+     * @return true, if vSync is enabled
+    */
+    public boolean isVSync ();
+
+    /**
+    * set flag, if vSync is enabled
+     *
+     * @param vsync true, if vSync is enabled
+    */
+    public void setVSync (boolean vsync);
+
+    /**
     * clear window
     */
     public void clear ();

@@ -23,7 +23,7 @@ public class Main {
         BasicConfigurator.configure();
 
         //create new instance of game with not fixed fps rate, but 60 updates per second
-        MySimpleGameStateApp app = new MySimpleGameStateApp(true, -1, 60);
+        MySimpleGameStateApp app = new MySimpleGameStateApp(true, -1, 60, false);
 
         //initialize game
         app.init();

@@ -22,8 +22,8 @@ public abstract class SimpleGameStateApp<T extends GameState> extends SimpleGame
      *
      * @param useMultiThreading flag if multi threading should be used or not
     */
-    public SimpleGameStateApp (boolean useMultiThreading, int fixedFPS, int fixedUPS) {
-        super(useMultiThreading, fixedFPS, fixedUPS);
+    public SimpleGameStateApp (boolean useMultiThreading, int fixedFPS, int fixedUPS, boolean vSync) {
+        super(useMultiThreading, fixedFPS, fixedUPS, vSync);
 
         //create new game state manager
         this.stateManager = new DefaultGameStateManager<>();
@@ -31,7 +31,7 @@ public abstract class SimpleGameStateApp<T extends GameState> extends SimpleGame
 
     public SimpleGameStateApp () {
         //use multi threading, not fixed fps and target updates per second value of 60
-        super(true, 0, 60);
+        super(true, 0, 60, false);
 
         //create new game state manager
         this.stateManager = new DefaultGameStateManager<>();

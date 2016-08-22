@@ -99,12 +99,14 @@ public abstract class SimpleGameApp {
     private static final String UPDATE_KEEP_UP_WARNING =
             "Can't keep up with update rate, maybe it's to high or other tasks are slowing down the execution.";
 
+    protected boolean vSync = false;
+
     /**
     * default constructor
      *
      * @param useMultiThreading true, if updates should be executed in extra update thread
     */
-    public SimpleGameApp (boolean useMultiThreading, int targetFPS, int targetUPS) {
+    public SimpleGameApp (boolean useMultiThreading, int targetFPS, int targetUPS, boolean vSync) {
         this.useMultiThreading = useMultiThreading;
 
         if (targetFPS < 1) {
@@ -124,6 +126,8 @@ public abstract class SimpleGameApp {
         if (!this.useMultiThreading && this.useUPS.get()) {
             throw new IllegalArgumentException("fixed updates per second is only available if multi threading is enabled.");
         }
+
+        this.vSync = vSync;
     }
 
     /**
@@ -145,7 +149,7 @@ public abstract class SimpleGameApp {
 
     public void start () {
         //create new GLFW window
-        this.window = new GLFWWindow(600, 400, "Simple Game App");
+        this.window = new GLFWWindow(600, 400, "Simple Game App", this.vSync);
         this.window.create();
 
         this.onCreateWindow(window);
