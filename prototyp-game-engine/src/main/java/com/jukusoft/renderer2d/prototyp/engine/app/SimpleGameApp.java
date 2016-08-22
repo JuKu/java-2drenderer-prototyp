@@ -15,6 +15,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.glClear;
 import static org.lwjgl.opengles.GLES20.GL_COLOR_BUFFER_BIT;
+import static org.lwjgl.opengles.GLES20.GL_STENCIL_BUFFER_BIT;
 
 /**
  * Created by Justin on 21.08.2016.
@@ -189,6 +190,8 @@ public abstract class SimpleGameApp {
         int currentFPSSecond = 0;
         int fpsCounter = 0;
 
+        this.window.clear();
+
         //start renderer and gameloop
         if (!this.useMultiThreading) {
             Logger.getRootLogger().info("multi threading for game engine isnt enabled, use only one thread to update and render game.");
@@ -225,7 +228,7 @@ public abstract class SimpleGameApp {
                 GamePlatform.executeUpdateQueue();
 
                 //clear framebuffer
-                glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+                glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
                 //render
                 this.render();
@@ -275,7 +278,7 @@ public abstract class SimpleGameApp {
                 window.processInput();
 
                 //clear framebuffer
-                glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+                glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
                 //render
                 this.render();
