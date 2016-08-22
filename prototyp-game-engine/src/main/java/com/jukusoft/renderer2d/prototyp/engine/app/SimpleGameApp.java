@@ -185,8 +185,8 @@ public abstract class SimpleGameApp {
         /**
          * for frames per second calculation
          */
-        int lastSecond = 0;
-        int currentSecond = 0;
+        int lastFPSSecond = 0;
+        int currentFPSSecond = 0;
         int fpsCounter = 0;
 
         //start renderer and gameloop
@@ -198,15 +198,15 @@ public abstract class SimpleGameApp {
                 elapsedTime = fpsTimer.getElapsedTime();
 
                 //get current second for fps calculation
-                currentSecond = (int) System.currentTimeMillis() / 1000;
+                currentFPSSecond = (int) System.currentTimeMillis() / 1000;
 
                 //check, if its the same second
-                if (currentSecond != lastSecond) {
+                if (currentFPSSecond != lastFPSSecond) {
                     //save ups
                     this.lastFPSCounter.set(fpsCounter);
 
                     //set new last second
-                    lastSecond = currentSecond;
+                    lastFPSSecond = currentFPSSecond;
 
                     //log ups counter
                     Logger.getRootLogger().debug("FPS: " + this.lastFPSCounter.get() + ", UPS: " + this.lastUPSCounter.get());
@@ -238,6 +238,10 @@ public abstract class SimpleGameApp {
 
                 //execute tasks which should be executed in ui thread
                 GamePlatform.executeUIQueue();
+
+                if (this.fixedFPS.get()) {
+                    syncFPS(this.fpsTimer.getLastLoopExecutionTime());
+                }
             }
         } else {
             Logger.getRootLogger().info("multi threading for game engine is enabled, create new thread for gameloop.");
@@ -247,16 +251,18 @@ public abstract class SimpleGameApp {
 
             //renderer loop
             while (!window.shouldClose()) {
+                elapsedTime = fpsTimer.getElapsedTime();
+
                 //get current second for fps calculation
-                currentSecond = (int) System.currentTimeMillis() / 1000;
+                currentFPSSecond = (int) System.currentTimeMillis() / 1000;
 
                 //check, if its the same second
-                if (currentSecond != lastSecond) {
+                if (currentFPSSecond != lastFPSSecond) {
                     //save ups
                     this.lastFPSCounter.set(fpsCounter);
 
                     //set new last second
-                    lastSecond = currentSecond;
+                    lastFPSSecond = currentFPSSecond;
 
                     //log ups counter
                     Logger.getRootLogger().debug("FPS: " + this.lastFPSCounter.get() + ", UPS: " + this.lastUPSCounter.get());
@@ -282,6 +288,10 @@ public abstract class SimpleGameApp {
 
                 //execute tasks which should be executed in ui thread
                 GamePlatform.executeUIQueue();
+
+                if (this.fixedFPS.get()) {
+                    syncFPS(this.fpsTimer.getLastLoopExecutionTime());
+                }
             }
 
             //set exit flag, if it wasnt set before
