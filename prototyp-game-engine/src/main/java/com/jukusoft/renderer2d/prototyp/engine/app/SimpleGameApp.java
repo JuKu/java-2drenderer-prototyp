@@ -145,14 +145,19 @@ public abstract class SimpleGameApp {
                 //execute tasks which should be executed in ui thread
                 GamePlatform.executeUIQueue();
             }
+
+            //set exit flag, if it wasnt set before
+            this.exitFlag.set(true);
         }
 
         Logger.getRootLogger().info("window was closed by user.");
 
+        //shutdown game engine
         this.shutdown();
     }
 
     protected void createUpdateThread () {
+        //create new update thread
         Thread updateThread = new Thread(() -> {
             //start gameloop
             while (!exitFlag.get()) {
@@ -162,10 +167,24 @@ public abstract class SimpleGameApp {
                 //execute tasks which should be executed in update thread
                 GamePlatform.executeUpdateQueue();
             }
+
+            Logger.getRootLogger().info("shutdown gameloop now.");
         });
+
+        //log message
+        Logger.getRootLogger().info("start update thread now.");
+
+        //start thread
+        updateThread.start();
     }
 
     public void shutdown () {
+        //set exit flag
+        this.exitFlag.set(true);
+
+        //call hook
+        this.beforeShutdown();
+
         //close window
         this.window.close();
 
@@ -174,6 +193,17 @@ public abstract class SimpleGameApp {
 
         //shutdown GLFW
         GLFWUtils.shutdownGLFW();
+
+        //call hook
+        this.afterShutdown();
+    }
+
+    protected void beforeShutdown () {
+        //
+    }
+
+    protected void afterShutdown () {
+        //
     }
 
     public IWindow getWindow () {

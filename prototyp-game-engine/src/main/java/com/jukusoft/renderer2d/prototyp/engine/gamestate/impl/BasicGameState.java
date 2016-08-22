@@ -39,7 +39,7 @@ public class BasicGameState implements GameState {
     }
 
     @Override
-    public void update() {
+    public void update(double delta) {
 
     }
 

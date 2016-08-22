@@ -173,4 +173,5 @@ public class BasicGameStateManager<T extends GameState> implements GameStateMana
     public Iterator<T> activeGameStatesIterator () {
         return this.iteratorQueue.iterator();
     }
+
 }

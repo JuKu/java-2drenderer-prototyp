@@ -23,7 +23,7 @@ public class Main {
         BasicConfigurator.configure();
 
         //create new instance of game
-        MySimpleGameApp app = new MySimpleGameApp();
+        MySimpleGameStateApp app = new MySimpleGameStateApp();
 
         //initialize game
         app.init();

@@ -40,6 +40,6 @@ public interface GameState {
     /**
     * update game state
     */
-    public void update();
+    public void update(double delta);
 
 }
