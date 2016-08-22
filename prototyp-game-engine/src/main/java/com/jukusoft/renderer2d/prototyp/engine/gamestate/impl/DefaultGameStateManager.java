@@ -35,4 +35,12 @@ public class DefaultGameStateManager<T extends GameState> extends BasicGameState
         }
     }
 
+    public void onResized (int width, int height) {
+        //iterate through active game states
+        for (T state : this.iteratorQueue) {
+            //update game state
+            state.onResized(width, height);
+        }
+    }
+
 }

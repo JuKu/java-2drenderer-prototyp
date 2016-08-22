@@ -28,6 +28,14 @@ public interface GameState {
     public <T extends GameState> void onStart(GameStateManager<T> gameStateManager);
 
     /**
+    * will be called if window was resized
+     *
+     * @param width new width of window
+     * @param height new height of window
+    */
+    public void onResized (int width, int height);
+
+    /**
     * render game state
     */
     public void render();

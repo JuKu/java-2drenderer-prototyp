@@ -29,6 +29,11 @@ public class BasicGameState implements GameState {
     }
 
     @Override
+    public void onResized(int width, int height) {
+
+    }
+
+    @Override
     public void render() {
 
     }
