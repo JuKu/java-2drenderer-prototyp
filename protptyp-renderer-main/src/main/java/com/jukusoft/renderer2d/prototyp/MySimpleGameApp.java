@@ -32,6 +32,8 @@ public class MySimpleGameApp extends SimpleGameApp {
     public void render() {
         //TODO: render window
 
+        //https://github.com/lwjglgamedev/lwjglbook/blob/master/chapter02/src/main/java/org/lwjglb/engine/GameEngine.java
+
         //check, if window was resized
         if (this.wasResized()) {
             //window was resized
