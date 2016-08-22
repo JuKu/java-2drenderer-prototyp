@@ -78,9 +78,19 @@ public abstract class SimpleGameApp {
     protected final Timer upsTimer = new Timer();
 
     /**
+    * frames per second timer
+    */
+    protected final Timer fpsTimer = new Timer();
+
+    /**
     * last update per second counter
     */
     protected final AtomicInteger lastUPSCounter = new AtomicInteger(0);
+
+    /**
+     * last frames per second counter
+     */
+    protected final AtomicInteger lastFPSCounter = new AtomicInteger(0);
 
     /**
     * the update keep up warning message
@@ -170,12 +180,41 @@ public abstract class SimpleGameApp {
         //initialize game
         this.initialize();
 
+        float elapsedTime = 0;
+
+        /**
+         * for frames per second calculation
+         */
+        int lastSecond = 0;
+        int currentSecond = 0;
+        int fpsCounter = 0;
+
         //start renderer and gameloop
         if (!this.useMultiThreading) {
             Logger.getRootLogger().info("multi threading for game engine isnt enabled, use only one thread to update and render game.");
 
             //renderer loop
             while (!window.shouldClose()) {
+                elapsedTime = fpsTimer.getElapsedTime();
+
+                //get current second for fps calculation
+                currentSecond = (int) System.currentTimeMillis() / 1000;
+
+                //check, if its the same second
+                if (currentSecond != lastSecond) {
+                    //save ups
+                    this.lastFPSCounter.set(fpsCounter);
+
+                    //set new last second
+                    lastSecond = currentSecond;
+
+                    //log ups counter
+                    Logger.getRootLogger().debug("FPS: " + this.lastFPSCounter.get() + ", UPS: " + this.lastUPSCounter.get());
+
+                    //reset counter
+                    fpsCounter = 0;
+                }
+
                 //process input events and call callbacks
                 window.processInput();
 
@@ -191,6 +230,9 @@ public abstract class SimpleGameApp {
                 //render
                 this.render();
 
+                //increment frames per second counter
+                fpsCounter++;
+
                 //swap back and front buffers
                 window.swap();
 
@@ -205,6 +247,24 @@ public abstract class SimpleGameApp {
 
             //renderer loop
             while (!window.shouldClose()) {
+                //get current second for fps calculation
+                currentSecond = (int) System.currentTimeMillis() / 1000;
+
+                //check, if its the same second
+                if (currentSecond != lastSecond) {
+                    //save ups
+                    this.lastFPSCounter.set(fpsCounter);
+
+                    //set new last second
+                    lastSecond = currentSecond;
+
+                    //log ups counter
+                    Logger.getRootLogger().debug("FPS: " + this.lastFPSCounter.get() + ", UPS: " + this.lastUPSCounter.get());
+
+                    //reset counter
+                    fpsCounter = 0;
+                }
+
                 //process input events and call callbacks
                 window.processInput();
 
@@ -213,6 +273,9 @@ public abstract class SimpleGameApp {
 
                 //render
                 this.render();
+
+                //increment frames per second counter
+                fpsCounter++;
 
                 //swap back and front buffers
                 window.swap();
@@ -263,7 +326,7 @@ public abstract class SimpleGameApp {
                         lastSecond = currentSecond;
 
                         //log ups counter
-                        Logger.getRootLogger().debug("UPS: " + this.lastUPSCounter.get());
+                        //Logger.getRootLogger().debug("UPS: " + this.lastUPSCounter.get());
 
                         //reset counter
                         upsCounter = 0;
@@ -296,11 +359,24 @@ public abstract class SimpleGameApp {
         updateThread.start();
     }
 
-    private void syncUPS(double loopStartTime) {
-        float loopSlot = 1f / 50;
+    private void syncUPS (double loopStartTime) {
+        float loopSlot = 1f / this.targetUPS.get();
         double endTime = loopStartTime + loopSlot;
+
         while(upsTimer.getTime() < endTime) {
             try {
+                Thread.sleep(1);
+            } catch (InterruptedException ie) {}
+        }
+    }
+
+    private void syncFPS (double loopStartTime) {
+        float loopSlot = 1f / this.targetFPS.get();
+        double endTime = loopStartTime + loopSlot;
+
+        while(upsTimer.getTime() < endTime) {
+            try {
+                //wait 1 ms
                 Thread.sleep(1);
             } catch (InterruptedException ie) {}
         }
@@ -362,7 +438,7 @@ public abstract class SimpleGameApp {
      * @return frames per second rate
     */
     public long getFPS () {
-        return this.fps.get();
+        return this.lastFPSCounter.get();
     }
 
     /**
