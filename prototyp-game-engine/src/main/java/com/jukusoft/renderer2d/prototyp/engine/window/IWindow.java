@@ -132,6 +132,11 @@ public interface IWindow {
     public void setExitOnClose (boolean exitOnClose);
 
     /**
+    * clear window
+    */
+    public void clear ();
+
+    /**
     * swap buffers
     */
     public void swap ();

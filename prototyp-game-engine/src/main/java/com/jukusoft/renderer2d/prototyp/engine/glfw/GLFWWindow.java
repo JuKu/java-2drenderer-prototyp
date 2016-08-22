@@ -342,6 +342,12 @@ public class GLFWWindow implements IWindow {
     }
 
     @Override
+    public void clear() {
+        // Set the clear color
+        glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
+    }
+
+    @Override
     public void swap() {
         //swap back and front buffer
         glfwSwapBuffers(this.window);

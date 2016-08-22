@@ -36,7 +36,7 @@ public class IntroGameState extends BasicGameState {
 
     @Override
     public void onResized (int width, int height) {
-        Logger.getRootLogger().info("window was resized., new width: " + width + ", new height: " + height);
+        Logger.getRootLogger().info("window was resized, new width: " + width + ", new height: " + height);
     }
 
 }

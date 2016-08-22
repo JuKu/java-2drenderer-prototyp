@@ -22,8 +22,8 @@ public class Main {
         //configure log4j to log to console
         BasicConfigurator.configure();
 
-        //create new instance of game
-        MySimpleGameStateApp app = new MySimpleGameStateApp();
+        //create new instance of game with not fixed fps rate, but 60 updates per second
+        MySimpleGameStateApp app = new MySimpleGameStateApp(true, -1, 60);
 
         //initialize game
         app.init();

@@ -12,6 +12,10 @@ import com.jukusoft.renderer2d.prototyp.gamestate.IntroGameState;
  */
 public class MySimpleGameStateApp extends SimpleGameStateApp<GameState> {
 
+    public MySimpleGameStateApp(boolean useMultiThreading, int fixedFPS, int fixedUPS) {
+        super(useMultiThreading, fixedFPS, fixedUPS);
+    }
+
     @Override
     protected void onInitGame(GameStateManager<GameState> stateManager) {
         //create new game state
@@ -27,6 +31,7 @@ public class MySimpleGameStateApp extends SimpleGameStateApp<GameState> {
             e.printStackTrace();
 
             //TODO: replace this line
+
             System.exit(1);
         }
     }
