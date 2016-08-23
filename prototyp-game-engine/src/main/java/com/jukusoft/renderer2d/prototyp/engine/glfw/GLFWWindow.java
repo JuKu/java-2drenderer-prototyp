@@ -381,6 +381,11 @@ public class GLFWWindow implements IWindow {
     }
 
     @Override
+    public boolean isKeyPressed(int keyCode) {
+        return glfwGetKey(this.window, keyCode) == GLFW_PRESS;
+    }
+
+    @Override
     public void clear() {
         //get clear color
         final Color color = this.clearColor;

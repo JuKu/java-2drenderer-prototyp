@@ -156,6 +156,27 @@ public interface IWindow {
     public void setClearColor (float r, float g, float b, float a);
 
     /**
+    * set viewport of window
+     *
+     * @param x start x position
+     * @param y start y position
+     * @param width width of viewport
+     * @param height height of viewport
+    */
+    public void setViewPort (int x, int y, int width, int height);
+
+    /**
+    * check, if key is pressed
+     *
+     * TODO: maybe caching is required, if system call requires to much performance
+     *
+     * @param keyCode ascii code of key
+     *
+     * @return true, if key is pressed
+    */
+    public boolean isKeyPressed(int keyCode);
+
+    /**
     * clear window
     */
     public void clear ();
