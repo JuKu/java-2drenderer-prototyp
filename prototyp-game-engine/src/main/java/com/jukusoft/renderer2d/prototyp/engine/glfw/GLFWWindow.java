@@ -1,9 +1,7 @@
 package com.jukusoft.renderer2d.prototyp.engine.glfw;
 
 import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.opengl.GL11.GL_FALSE;
-import static org.lwjgl.opengl.GL11.GL_TRUE;
-import static org.lwjgl.opengl.GL11.glClearColor;
+import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 import com.jukusoft.renderer2d.prototyp.engine.color.Color;
@@ -375,6 +373,11 @@ public class GLFWWindow implements IWindow {
         this.clearColor.setGreen(g);
         this.clearColor.setBlue(b);
         this.clearColor.setAlpha(a);
+    }
+
+    @Override
+    public void setViewPort(int x, int y, int width, int height) {
+        glViewport(x, y, width, height);
     }
 
     @Override

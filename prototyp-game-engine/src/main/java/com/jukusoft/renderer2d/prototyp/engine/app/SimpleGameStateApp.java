@@ -63,6 +63,9 @@ public abstract class SimpleGameStateApp<T extends GameState> extends SimpleGame
             //reset resized flag
             this.setResizedFlag(false);
 
+            //reset viewport
+            this.getWindow().setViewPort(0, 0, this.getWindow().getWidth(), this.getWindow().getHeight());
+
             //notify game states
             this.stateManager.onResized(getWindow().getWidth(), getWindow().getHeight());
         }

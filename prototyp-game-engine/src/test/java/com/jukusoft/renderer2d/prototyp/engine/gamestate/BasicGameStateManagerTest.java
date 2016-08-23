@@ -18,7 +18,7 @@ public class BasicGameStateManagerTest {
     @Test
     public void testAddGameState () {
         //create new game state manager
-        GameStateManager<GameState> stateManager = new BasicGameStateManager<>();
+        GameStateManager<GameState> stateManager = new BasicGameStateManager<>(null);
 
         assertEquals("number of game states in BasicGameStateManager isnt 0.", 0, stateManager.countRegisteredGameStates());
         assertEquals("number of active game states in BasicGameStateManager isnt 0.", 0, stateManager.countActiveGameStates());
@@ -36,7 +36,7 @@ public class BasicGameStateManagerTest {
     @Test
     public void testRemoveGameState () {
         //create new game state manager
-        GameStateManager<GameState> stateManager = new BasicGameStateManager<>();
+        GameStateManager<GameState> stateManager = new BasicGameStateManager<>(null);
 
         //create new game state
         GameState state = new BasicGameState();
@@ -54,7 +54,7 @@ public class BasicGameStateManagerTest {
     @Test
     public void testRemoveAllGameStates () {
         //create new game state manager
-        GameStateManager<GameState> stateManager = new BasicGameStateManager<>();
+        GameStateManager<GameState> stateManager = new BasicGameStateManager<>(null);
 
         //create new game state
         GameState state = new BasicGameState();
@@ -77,7 +77,7 @@ public class BasicGameStateManagerTest {
     @Test (expected = GameStateNotFoundException.class)
     public void testPushGameStateNotFound () throws GameStateNotFoundException {
         //create new game state manager
-        GameStateManager<GameState> stateManager = new BasicGameStateManager<>();
+        GameStateManager<GameState> stateManager = new BasicGameStateManager<>(null);
 
         //push game states
         stateManager.pushGameState("gameState1");
@@ -86,7 +86,7 @@ public class BasicGameStateManagerTest {
     @Test
     public void testPushAndPopGameStates () throws GameStateNotFoundException {
         //create new game state manager
-        GameStateManager<GameState> stateManager = new BasicGameStateManager<>();
+        GameStateManager<GameState> stateManager = new BasicGameStateManager<>(null);
 
         //create new game states
         GameState state = new BasicGameState();

@@ -1,5 +1,6 @@
 package com.jukusoft.renderer2d.prototyp.gamestate;
 
+import com.jukusoft.renderer2d.prototyp.engine.app.GameApp;
 import com.jukusoft.renderer2d.prototyp.engine.gamestate.GameState;
 import com.jukusoft.renderer2d.prototyp.engine.gamestate.GameStateManager;
 import com.jukusoft.renderer2d.prototyp.engine.gamestate.impl.BasicGameState;
@@ -10,8 +11,10 @@ import org.apache.log4j.Logger;
  */
 public class IntroGameState extends BasicGameState {
 
+    protected volatile float color = 0.0f;
+
     @Override
-    public <T extends GameState> void onInit(GameStateManager<T> gameStateManager) {
+    public <T extends GameState> void onInit(GameStateManager<T> gameStateManager, GameApp app) {
         //TODO: initialize game state
 
         Logger.getRootLogger().info("IntroGameState::onInit().");
@@ -25,12 +28,24 @@ public class IntroGameState extends BasicGameState {
     }
 
     @Override
-    public void update (double delta) {
+    public void update (GameApp app, double delta) {
         //TODO: update game state
+
+        color += 1 * 0.01f;
+        if (color > 1) {
+            color = 1.0f;
+        } else if ( color < 0 ) {
+            color = 0.0f;
+        }
     }
 
     @Override
-    public void render () {
+    public void render (GameApp app) {
+        Logger.getRootLogger().debug("color: " + color);
+
+        //set clear color
+        this.getWindow().setClearColor(color, color, color, 0.0f);
+
         //TODO: render game state
     }
 

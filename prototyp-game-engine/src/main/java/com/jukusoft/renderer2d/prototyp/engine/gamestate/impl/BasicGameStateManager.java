@@ -47,7 +47,7 @@ public class BasicGameStateManager<T extends GameState> implements GameStateMana
     @Override
     public void addGameState(String name, T gameState) {
         //create game state
-        gameState.onInit(this, this.app);
+        gameState.init(this, this.app);
 
         //add game state to map
         this.states.put(name, gameState);
@@ -67,7 +67,7 @@ public class BasicGameStateManager<T extends GameState> implements GameStateMana
             this.states.remove(name);
 
             //shutdown game state
-            state.onShutdown();
+            state.shutdown();
         }
     }
 
@@ -79,7 +79,7 @@ public class BasicGameStateManager<T extends GameState> implements GameStateMana
         //iterate through all registered game states
         for (Map.Entry<String,T> entry : this.states.entrySet()) {
             //shutdown game state
-            entry.getValue().onShutdown();
+            entry.getValue().shutdown();
         }
 
         //clear map

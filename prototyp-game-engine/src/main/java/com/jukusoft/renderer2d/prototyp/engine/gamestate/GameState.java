@@ -12,12 +12,12 @@ public interface GameState {
      *
      * will be called, if game state will be created
     */
-    public <T extends GameState> void onInit(GameStateManager<T> gameStateManager, GameApp app);
+    public <T extends GameState> void init(GameStateManager<T> gameStateManager, GameApp app);
 
     /**
      * shutdown game state
      */
-    public void onShutdown();
+    public void shutdown();
 
     /**
     * pause game state and switch to another game state

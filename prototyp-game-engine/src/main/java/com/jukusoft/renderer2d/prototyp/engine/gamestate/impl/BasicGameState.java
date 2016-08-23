@@ -3,20 +3,45 @@ package com.jukusoft.renderer2d.prototyp.engine.gamestate.impl;
 import com.jukusoft.renderer2d.prototyp.engine.app.GameApp;
 import com.jukusoft.renderer2d.prototyp.engine.gamestate.GameState;
 import com.jukusoft.renderer2d.prototyp.engine.gamestate.GameStateManager;
+import com.jukusoft.renderer2d.prototyp.engine.window.IWindow;
 
 /**
  * Created by Justin on 17.08.2016.
  */
 public class BasicGameState implements GameState {
 
-    @Override
-    public <T extends GameState> void onInit(GameStateManager<T> gameStateManager, GameApp app) {
+    /**
+    * instance of game application
+    */
+    protected GameApp app = null;
 
+    @Override
+    public final <T extends GameState> void init(GameStateManager<T> gameStateManager, GameApp app) {
+        //save instance of game application
+        this.app = app;
+
+        this.onInit(gameStateManager, app);
     }
 
-    @Override
-    public void onShutdown() {
+    /**
+     * create and initialize game state
+     *
+     * will be called, if game state will be created
+     */
+    public <T extends GameState> void onInit(GameStateManager<T> gameStateManager, GameApp app) {
+        //
+    }
 
+    /**
+     * shutdown game state
+     */
+    @Override
+    public void shutdown() {
+        this.onShutdown();
+    }
+
+    public void onShutdown() {
+        //
     }
 
     @Override
@@ -47,6 +72,13 @@ public class BasicGameState implements GameState {
     @Override
     public void update(GameApp app, double delta) {
 
+    }
+
+    /**
+    * get instance of window
+    */
+    protected IWindow getWindow () {
+        return this.app.getWindow();
     }
 
 }
