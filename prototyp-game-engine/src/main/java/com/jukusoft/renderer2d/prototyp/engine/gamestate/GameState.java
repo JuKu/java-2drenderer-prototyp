@@ -1,5 +1,7 @@
 package com.jukusoft.renderer2d.prototyp.engine.gamestate;
 
+import com.jukusoft.renderer2d.prototyp.engine.app.GameApp;
+
 /**
  * Created by Justin on 17.08.2016.
  */
@@ -10,7 +12,7 @@ public interface GameState {
      *
      * will be called, if game state will be created
     */
-    public <T extends GameState> void onInit(GameStateManager<T> gameStateManager);
+    public <T extends GameState> void onInit(GameStateManager<T> gameStateManager, GameApp app);
 
     /**
      * shutdown game state
@@ -25,7 +27,7 @@ public interface GameState {
     /**
     * switch to this game state and start
     */
-    public <T extends GameState> void onStart(GameStateManager<T> gameStateManager);
+    public <T extends GameState> void onStart(GameStateManager<T> gameStateManager, GameApp app);
 
     /**
     * will be called if window was resized
@@ -38,7 +40,7 @@ public interface GameState {
     /**
     * render game state
     */
-    public void render();
+    public void render(GameApp app);
 
     /**
     * process input events
@@ -48,6 +50,6 @@ public interface GameState {
     /**
     * update game state
     */
-    public void update(double delta);
+    public void update(GameApp app, double delta);
 
 }

@@ -1,5 +1,6 @@
 package com.jukusoft.renderer2d.prototyp.engine.gamestate.impl;
 
+import com.jukusoft.renderer2d.prototyp.engine.app.GameApp;
 import com.jukusoft.renderer2d.prototyp.engine.exception.GameStateNotFoundException;
 import com.jukusoft.renderer2d.prototyp.engine.gamestate.GameState;
 import com.jukusoft.renderer2d.prototyp.engine.gamestate.GameStateManager;
@@ -34,14 +35,19 @@ public class BasicGameStateManager<T extends GameState> implements GameStateMana
     */
     protected Queue<T> iteratorQueue = new ConcurrentLinkedQueue<>();
 
-    public BasicGameStateManager () {
-        //
+    /**
+    * instance of game application
+    */
+    protected GameApp app = null;
+
+    public BasicGameStateManager (GameApp app) {
+        this.app = app;
     }
 
     @Override
     public void addGameState(String name, T gameState) {
         //create game state
-        gameState.onInit(this);
+        gameState.onInit(this, this.app);
 
         //add game state to map
         this.states.put(name, gameState);
@@ -115,7 +121,7 @@ public class BasicGameStateManager<T extends GameState> implements GameStateMana
         Logger.getRootLogger().info("push gamestate: " + name);
 
         //start game state
-        state.onStart(this);
+        state.onStart(this, this.app);
 
         //push game state to active game state stack
         this.activeGameStates.push(state);

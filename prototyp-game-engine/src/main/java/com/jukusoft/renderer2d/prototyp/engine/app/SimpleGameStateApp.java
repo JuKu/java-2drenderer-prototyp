@@ -26,7 +26,7 @@ public abstract class SimpleGameStateApp<T extends GameState> extends SimpleGame
         super(useMultiThreading, fixedFPS, fixedUPS, vSync);
 
         //create new game state manager
-        this.stateManager = new DefaultGameStateManager<>();
+        this.stateManager = new DefaultGameStateManager<>(this);
     }
 
     public SimpleGameStateApp () {
@@ -34,7 +34,7 @@ public abstract class SimpleGameStateApp<T extends GameState> extends SimpleGame
         super(true, 0, 60, false);
 
         //create new game state manager
-        this.stateManager = new DefaultGameStateManager<>();
+        this.stateManager = new DefaultGameStateManager<>(this);
     }
 
     @Override

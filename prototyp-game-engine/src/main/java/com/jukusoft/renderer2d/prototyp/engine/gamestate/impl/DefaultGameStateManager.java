@@ -1,5 +1,6 @@
 package com.jukusoft.renderer2d.prototyp.engine.gamestate.impl;
 
+import com.jukusoft.renderer2d.prototyp.engine.app.GameApp;
 import com.jukusoft.renderer2d.prototyp.engine.gamestate.GameState;
 
 /**
@@ -7,15 +8,15 @@ import com.jukusoft.renderer2d.prototyp.engine.gamestate.GameState;
  */
 public class DefaultGameStateManager<T extends GameState> extends BasicGameStateManager<T> {
 
-    public DefaultGameStateManager() {
-        super();
+    public DefaultGameStateManager(GameApp app) {
+        super(app);
     }
 
     public void render () {
         //iterate through active game states
         for (T state : this.iteratorQueue) {
             //render game state
-            state.render();
+            state.render(this.app);
         }
     }
 
@@ -31,7 +32,7 @@ public class DefaultGameStateManager<T extends GameState> extends BasicGameState
         //iterate through active game states
         for (T state : this.iteratorQueue) {
             //update game state
-            state.update(delta);
+            state.update(this.app, delta);
         }
     }
 

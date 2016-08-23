@@ -1,5 +1,6 @@
 package com.jukusoft.renderer2d.prototyp.engine.gamestate.impl;
 
+import com.jukusoft.renderer2d.prototyp.engine.app.GameApp;
 import com.jukusoft.renderer2d.prototyp.engine.gamestate.GameState;
 import com.jukusoft.renderer2d.prototyp.engine.gamestate.GameStateManager;
 
@@ -9,7 +10,7 @@ import com.jukusoft.renderer2d.prototyp.engine.gamestate.GameStateManager;
 public class BasicGameState implements GameState {
 
     @Override
-    public <T extends GameState> void onInit(GameStateManager<T> gameStateManager) {
+    public <T extends GameState> void onInit(GameStateManager<T> gameStateManager, GameApp app) {
 
     }
 
@@ -24,7 +25,7 @@ public class BasicGameState implements GameState {
     }
 
     @Override
-    public <T extends GameState> void onStart(GameStateManager<T> gameStateManager) {
+    public <T extends GameState> void onStart(GameStateManager<T> gameStateManager, GameApp app) {
 
     }
 
@@ -34,7 +35,7 @@ public class BasicGameState implements GameState {
     }
 
     @Override
-    public void render() {
+    public void render(GameApp app) {
 
     }
 
@@ -44,7 +45,7 @@ public class BasicGameState implements GameState {
     }
 
     @Override
-    public void update(double delta) {
+    public void update(GameApp app, double delta) {
 
     }
 
