@@ -20,7 +20,7 @@ import static org.lwjgl.opengles.GLES20.GL_STENCIL_BUFFER_BIT;
 /**
  * Created by Justin on 21.08.2016.
  */
-public abstract class SimpleGameApp {
+public abstract class SimpleGameApp implements GameApp {
 
     /**
     * window
@@ -139,6 +139,7 @@ public abstract class SimpleGameApp {
         this.targetFPS.set(60);
     }
 
+    @Override
     public void init () {
         //log message
         Logger.getRootLogger().info("initialize GLFW now.");
@@ -147,6 +148,7 @@ public abstract class SimpleGameApp {
         GLFWUtils.init();
     }
 
+    @Override
     public void start () {
         //create new GLFW window
         this.window = new GLFWWindow(600, 400, "Simple Game App", this.vSync);
@@ -409,6 +411,7 @@ public abstract class SimpleGameApp {
         GamePlatform.executeUpdateQueue();
     }
 
+    @Override
     public void shutdown () {
         //set exit flag
         this.exitFlag.set(true);
@@ -437,14 +440,17 @@ public abstract class SimpleGameApp {
         //
     }
 
+    @Override
     public IWindow getWindow () {
         return this.window;
     }
 
+    @Override
     public boolean wasResized () {
         return this.getWindow().wasResized();
     }
 
+    @Override
     public void setResizedFlag (boolean resized) {
         this.getWindow().setResizedFlag(resized);
     }
@@ -454,6 +460,7 @@ public abstract class SimpleGameApp {
      *
      * @return frames per second rate
     */
+    @Override
     public long getFPS () {
         return this.lastFPSCounter.get();
     }
@@ -463,6 +470,7 @@ public abstract class SimpleGameApp {
      *
      * @return updates per second rate
     */
+    @Override
     public int getUPS () {
         return this.lastUPSCounter.get();
     }
