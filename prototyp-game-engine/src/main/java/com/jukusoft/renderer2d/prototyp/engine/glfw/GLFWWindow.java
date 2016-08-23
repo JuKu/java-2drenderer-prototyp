@@ -108,7 +108,7 @@ public class GLFWWindow implements IWindow {
         //set window resizeable
         glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
 
-        //use OpenGL 3.2 and above, dont use legacy OpenGL
+        //use OpenGL 3.2 and above, dont use legacy OpenGL - use highest possible version of OpenGL
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, this.openGLMajorVersion);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, this.openGLMinorVersion);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
