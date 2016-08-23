@@ -5,7 +5,7 @@ package com.jukusoft.renderer2d.prototyp.engine.color;
  *
  * Created by Justin on 23.08.2016.
  */
-public class Color {
+public class Color implements Cloneable {
 
     /**
     * RGBA color values red, green, blue, alpha
@@ -81,4 +81,11 @@ public class Color {
     public void setAlpha (float a) {
         this.a = a;
     }
+
+    @Override
+    public Color clone () {
+        //return new instance of color with same values
+        return new Color(this.r, this.g, this.b, this.a);
+    }
+
 }
