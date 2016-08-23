@@ -53,8 +53,6 @@ public class IntroGameState extends BasicGameState {
 
     @Override
     public void render (GameApp app) {
-        Logger.getRootLogger().debug("color: " + color);
-
         //set clear color
         this.getWindow().setClearColor(color, color, color, 0.0f);
 
