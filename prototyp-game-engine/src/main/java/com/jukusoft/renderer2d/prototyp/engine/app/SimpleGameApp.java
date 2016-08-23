@@ -371,6 +371,9 @@ public abstract class SimpleGameApp implements GameApp {
             Logger.getRootLogger().info("shutdown gameloop now.");
         });
 
+        //set name of thread
+        updateThread.setName("updateThread");
+
         //log message
         Logger.getRootLogger().info("start update thread now.");
 
