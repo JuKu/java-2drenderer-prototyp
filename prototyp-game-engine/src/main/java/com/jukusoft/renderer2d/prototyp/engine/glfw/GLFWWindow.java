@@ -78,6 +78,9 @@ public class GLFWWindow implements IWindow {
     */
     protected AtomicBoolean vSync = new AtomicBoolean(false);
 
+    protected int openGLMajorVersion = 3;
+    protected int openGLMinorVersion = 2;
+
     /**
     * clear color
     */
@@ -104,6 +107,12 @@ public class GLFWWindow implements IWindow {
 
         //set window resizeable
         glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
+
+        //use OpenGL 3.2 and above, dont use legacy OpenGL
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, this.openGLMajorVersion);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, this.openGLMinorVersion);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
         //set monitor to primary monitor, if monitor != NULL window will be shown in fullscreen mode
         this.monitor = NULL;//glfwGetPrimaryMonitor();
