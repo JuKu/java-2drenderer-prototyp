@@ -146,6 +146,16 @@ public interface IWindow {
     public void setVSync (boolean vsync);
 
     /**
+    * set window clear color
+     *
+     * @param r red
+     * @param g green
+     * @param b blue
+     * @param a alpha
+    */
+    public void setClearColor (float r, float g, float b, float a);
+
+    /**
     * clear window
     */
     public void clear ();

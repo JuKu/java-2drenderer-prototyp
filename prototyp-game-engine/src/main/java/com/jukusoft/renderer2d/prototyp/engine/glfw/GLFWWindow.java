@@ -6,6 +6,7 @@ import static org.lwjgl.opengl.GL11.GL_TRUE;
 import static org.lwjgl.opengl.GL11.glClearColor;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
+import com.jukusoft.renderer2d.prototyp.engine.color.Color;
 import com.jukusoft.renderer2d.prototyp.engine.utils.ImageUtils;
 import com.jukusoft.renderer2d.prototyp.engine.window.IWindow;
 import com.jukusoft.renderer2d.prototyp.engine.window.callback.KeyCallback;
@@ -76,6 +77,11 @@ public class GLFWWindow implements IWindow {
     * flag for v sync
     */
     protected AtomicBoolean vSync = new AtomicBoolean(false);
+
+    /**
+    * clear color
+    */
+    protected Color clearColor = new Color(1.0f, 0.0f, 0.0f, 0.0f);
 
     public GLFWWindow (int width, int height, String title, boolean vSync) {
         this.width = width;
@@ -327,7 +333,10 @@ public class GLFWWindow implements IWindow {
         GL.createCapabilities();
 
         // Set the clear color
-        glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
+        //glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
+
+        //clear screen
+        this.clear();
     }
 
     @Override
@@ -361,9 +370,20 @@ public class GLFWWindow implements IWindow {
     }
 
     @Override
+    public void setClearColor(float r, float g, float b, float a) {
+        this.clearColor.setRed(r);
+        this.clearColor.setGreen(g);
+        this.clearColor.setBlue(b);
+        this.clearColor.setAlpha(a);
+    }
+
+    @Override
     public void clear() {
+        //get clear color
+        final Color color = this.clearColor;
+
         // Set the clear color
-        glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
+        glClearColor(color.getRed(), color.getGreen(), color.getBlue(), color.getAalpha());
     }
 
     @Override
