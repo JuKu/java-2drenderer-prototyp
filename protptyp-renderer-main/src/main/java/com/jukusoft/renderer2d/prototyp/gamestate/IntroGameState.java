@@ -6,12 +6,16 @@ import com.jukusoft.renderer2d.prototyp.engine.gamestate.GameStateManager;
 import com.jukusoft.renderer2d.prototyp.engine.gamestate.impl.BasicGameState;
 import org.apache.log4j.Logger;
 
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_DOWN;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_UP;
+
 /**
  * Created by Justin on 22.08.2016.
  */
 public class IntroGameState extends BasicGameState {
 
     protected volatile float color = 0.0f;
+    protected volatile int direction = 0;
 
     @Override
     public <T extends GameState> void onInit(GameStateManager<T> gameStateManager, GameApp app) {
@@ -31,7 +35,15 @@ public class IntroGameState extends BasicGameState {
     public void update (GameApp app, double delta) {
         //TODO: update game state
 
-        color += 1 * 0.01f;
+        if (getWindow().isKeyPressed(GLFW_KEY_UP) ) {
+            direction = 1;
+        } else if (getWindow().isKeyPressed(GLFW_KEY_DOWN) ) {
+            direction = -1;
+        } else {
+            direction = 0;
+        }
+
+        color += this.direction * 0.01f;
         if (color > 1) {
             color = 1.0f;
         } else if ( color < 0 ) {
@@ -45,6 +57,8 @@ public class IntroGameState extends BasicGameState {
 
         //set clear color
         this.getWindow().setClearColor(color, color, color, 0.0f);
+
+        getWindow().clear();
 
         //TODO: render game state
     }
