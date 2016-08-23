@@ -163,7 +163,7 @@ public abstract class SimpleGameApp implements GameApp {
         window.addKeyCallback(new AbstractKeyCallback() {
             @Override
             public boolean keyPressed(int key) {
-                Logger.getRootLogger().info("key pressed.");
+                //Logger.getRootLogger().info("key pressed.");
 
                 //execute other callbacks
                 return true;
@@ -171,7 +171,7 @@ public abstract class SimpleGameApp implements GameApp {
 
             @Override
             public boolean keyReleased(int key) {
-                Logger.getRootLogger().info("key released.");
+                //Logger.getRootLogger().info("key released.");
 
                 //execute other callbacks
                 return true;
@@ -218,7 +218,7 @@ public abstract class SimpleGameApp implements GameApp {
                     lastFPSSecond = currentFPSSecond;
 
                     //log ups counter
-                    Logger.getRootLogger().debug("FPS: " + this.lastFPSCounter.get() + ", UPS: " + this.lastUPSCounter.get());
+                    //Logger.getRootLogger().debug("FPS: " + this.lastFPSCounter.get() + ", UPS: " + this.lastUPSCounter.get());
 
                     //reset counter
                     fpsCounter = 0;
@@ -274,7 +274,7 @@ public abstract class SimpleGameApp implements GameApp {
                     lastFPSSecond = currentFPSSecond;
 
                     //log ups counter
-                    Logger.getRootLogger().debug("FPS: " + this.lastFPSCounter.get() + ", UPS: " + this.lastUPSCounter.get());
+                    //Logger.getRootLogger().debug("FPS: " + this.lastFPSCounter.get() + ", UPS: " + this.lastUPSCounter.get());
 
                     //reset counter
                     fpsCounter = 0;
