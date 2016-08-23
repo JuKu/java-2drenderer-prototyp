@@ -234,7 +234,8 @@ public abstract class SimpleGameApp implements GameApp {
                 GamePlatform.executeUpdateQueue();
 
                 //clear framebuffer
-                glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+                //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+                window.clear();
 
                 //render
                 this.render();
@@ -284,7 +285,8 @@ public abstract class SimpleGameApp implements GameApp {
                 window.processInput();
 
                 //clear framebuffer
-                glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+                //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+                window.clear();
 
                 //render
                 this.render();

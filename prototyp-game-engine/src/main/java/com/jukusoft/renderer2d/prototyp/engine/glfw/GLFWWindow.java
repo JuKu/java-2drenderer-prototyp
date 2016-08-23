@@ -2,6 +2,8 @@ package com.jukusoft.renderer2d.prototyp.engine.glfw;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengles.GLES20.GL_COLOR_BUFFER_BIT;
+import static org.lwjgl.opengles.GLES20.GL_STENCIL_BUFFER_BIT;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 import com.jukusoft.renderer2d.prototyp.engine.color.Color;
@@ -392,6 +394,9 @@ public class GLFWWindow implements IWindow {
 
         // Set the clear color
         glClearColor(color.getRed(), color.getGreen(), color.getBlue(), color.getAalpha());
+
+        //clear framebuffer
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
     }
 
     @Override
