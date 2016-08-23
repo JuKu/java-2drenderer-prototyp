@@ -7,6 +7,7 @@ Use OpenGL to render - you dont have to concern about window & context creation 
   - Maven (you can also convert pom.xml files to gradle files)
   - LWJGL 3.0
   - log4j
+  - OpenGL 3.2
 
 ## Features
   - Window Creation with GLFW (you can add other context systems)
