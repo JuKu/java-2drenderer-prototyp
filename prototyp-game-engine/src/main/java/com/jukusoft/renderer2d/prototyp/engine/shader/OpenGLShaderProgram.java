@@ -4,6 +4,7 @@ import com.jukusoft.renderer2d.prototyp.engine.asset.Asset;
 import com.jukusoft.renderer2d.prototyp.engine.exception.OpenGLVersionException;
 import com.jukusoft.renderer2d.prototyp.engine.exception.ShaderException;
 import com.jukusoft.renderer2d.prototyp.engine.utils.OpenGLUtils;
+import org.apache.log4j.Logger;
 import org.lwjgl.opengl.GL30;
 import org.lwjgl.opengl.GL32;
 import org.lwjgl.opengl.GL40;
@@ -290,7 +291,15 @@ public class OpenGLShaderProgram extends Asset {
 
         //check for errors
         if (glGetProgrami(this.programID, GL_VALIDATE_STATUS) == 0) {
-            throw new ShaderException("Warning validating Shader code: " + glGetShaderInfoLog(this.programID, 1024));
+            /**
+            * This means, that validation may fail in some cases vene if the shader is correct, due to the
+            * fact that current state is not complete enough to run the shader (some data may have not
+            * been uploaded yet). So, instead of failing, we just print an error message to the standard
+            * error output.
+            */
+
+            //dont throw exception, only log message
+            Logger.getRootLogger().warn("Warning validating Shader code: " + glGetShaderInfoLog(this.programID, 1024));
         }
 
     }
