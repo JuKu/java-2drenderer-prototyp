@@ -96,11 +96,11 @@ public class GameState2 extends BasicGameState {
         //enable VAO
         this.vao.enable();
 
-        //disable VAO
-        this.vao.disable();
-
         // Draw the vertices, mode - GL_TRINANGLES, first element - 0, count - 3
         glDrawArrays(GL_TRIANGLES, 0, 3);
+
+        //disable VAO
+        this.vao.disable();
 
         //unbind VAO
         this.vao.unbind();
