@@ -14,8 +14,18 @@ import com.jukusoft.renderer2d.prototyp.engine.exception.AssetNotFoundException;
  */
 public interface AssetLoader<K, V> {
 
-    public V loadAsset(K key) throws AssetNotFoundException;
+    /**
+     * load asset
+     *
+     * @param key key how to find asset, for example an string
+     */
+    public V loadAsset (K key) throws AssetNotFoundException;
 
-    public V loadAssetWithoutCaching(K key) throws AssetNotFoundException;
+    /**
+     * load asset withput caching
+     *
+     * @param key key how to find asset, for example an string
+     */
+    public V loadAssetWithoutCaching (K key) throws AssetNotFoundException;
 
 }
