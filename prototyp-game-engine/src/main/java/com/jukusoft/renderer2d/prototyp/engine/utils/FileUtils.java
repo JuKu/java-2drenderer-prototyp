@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.List;
 
 /**
@@ -43,6 +44,19 @@ public class FileUtils {
     */
     public static List<String> readLines (String path, Charset charset) throws IOException {
         return Files.readAllLines(Paths.get(path), charset);
+    }
+
+    /**
+    * write text to file
+     *
+     * @param path path to file
+     * @param content content of file
+     * @param encoding file encoding
+     *
+     * @throws IOException
+    */
+    public static void writeFile (String path, String content, Charset encoding) throws IOException {
+        Files.write(Paths.get(path), content.getBytes(encoding), StandardOpenOption.CREATE);
     }
 
 }
