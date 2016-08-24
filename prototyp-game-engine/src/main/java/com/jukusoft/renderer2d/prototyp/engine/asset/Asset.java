@@ -71,7 +71,9 @@ public abstract class Asset {
     /**
     * cleanUp asset
     */
-    protected abstract void cleanUp ();
+    protected void cleanUp () {
+        //
+    }
 
     /**
     * will be called, if reference count is higher than 0, reload asset
