@@ -5,6 +5,8 @@ package com.jukusoft.renderer2d.prototyp.engine.mesh;
  */
 public abstract class Mesh {
 
-    //
+    public void cleanUp () {
+        //
+    }
 
 }
