@@ -5,6 +5,7 @@ import com.jukusoft.renderer2d.prototyp.engine.exception.GameStateNotFoundExcept
 import com.jukusoft.renderer2d.prototyp.engine.gamestate.GameState;
 import com.jukusoft.renderer2d.prototyp.engine.gamestate.GameStateManager;
 import com.jukusoft.renderer2d.prototyp.engine.window.IWindow;
+import com.jukusoft.renderer2d.prototyp.gamestate.GameState2;
 import com.jukusoft.renderer2d.prototyp.gamestate.IntroGameState;
 
 /**
@@ -19,10 +20,14 @@ public class MySimpleGameStateApp extends SimpleGameStateApp<GameState> {
     @Override
     protected void onInitGame(GameStateManager<GameState> stateManager) {
         //create new game state
-        IntroGameState introGameState = new IntroGameState();
+        //IntroGameState introGameState = new IntroGameState();
 
         //add game state
-        stateManager.addGameState("intro", introGameState);
+        //stateManager.addGameState("intro", introGameState);
+
+        //create and add new game state
+        GameState2 gameState2 = new GameState2();
+        stateManager.addGameState("intro", gameState2);
 
         //push game state to activate game state
         try {
