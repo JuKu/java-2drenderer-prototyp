@@ -82,6 +82,11 @@ public class FloatVertexBufferObject {
         glVertexAttribPointer(index, size, type, false, stride, offset);
     }
 
+    public void delete () {
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        glDeleteBuffers(this.vboID);
+    }
+
     public static FloatVertexBufferObject createAndPutBuffer (float[] vertices) {
         FloatVertexBufferObject vbo = new FloatVertexBufferObject();
 

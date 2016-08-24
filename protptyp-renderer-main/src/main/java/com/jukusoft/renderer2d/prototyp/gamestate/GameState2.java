@@ -13,6 +13,9 @@ import org.apache.log4j.Logger;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
+import static org.lwjgl.opengl.GL11.GL_TRIANGLES;
+import static org.lwjgl.opengl.GL11.glDrawArrays;
+
 /**
  * Created by Justin on 24.08.2016.
  */
@@ -71,11 +74,39 @@ public class GameState2 extends BasicGameState {
 
         //unbind VAO
         this.vao.unbind();
+
+        getWindow().setClearColor(0, 0, 0, 0);
     }
 
     @Override
     public void render (GameApp app) {
-        //
+        getWindow().clear();
+
+        if (getWindow().wasResized()) {
+            getWindow().setViewPort(0, 0, getWindow().getWidth(), getWindow().getHeight());
+            getWindow().setResizedFlag(false);
+        }
+
+        //bind shader program
+        this.shaderProgram.bind();
+
+        //bind VAO
+        this.vao.bind();
+
+        //enable VAO
+        this.vao.enable();
+
+        //disable VAO
+        this.vao.disable();
+
+        // Draw the vertices, mode - GL_TRINANGLES, first element - 0, count - 3
+        glDrawArrays(GL_TRIANGLES, 0, 3);
+
+        //unbind VAO
+        this.vao.unbind();
+
+        //unbind shader program
+        this.shaderProgram.unbind();
     }
 
 }

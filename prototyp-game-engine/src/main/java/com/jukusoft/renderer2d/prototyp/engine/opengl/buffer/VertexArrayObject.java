@@ -2,6 +2,8 @@ package com.jukusoft.renderer2d.prototyp.engine.opengl.buffer;
 
 import com.jukusoft.renderer2d.prototyp.engine.asset.Asset;
 
+import static org.lwjgl.opengl.GL20.glDisableVertexAttribArray;
+import static org.lwjgl.opengl.GL20.glEnableVertexAttribArray;
 import static org.lwjgl.opengl.GL30.glBindVertexArray;
 import static org.lwjgl.opengl.GL30.glDeleteVertexArrays;
 import static org.lwjgl.opengl.GL30.glGenVertexArrays;
@@ -39,7 +41,16 @@ public class VertexArrayObject extends Asset {
         glBindVertexArray(0);
     }
 
+    public void disable () {
+        glDisableVertexAttribArray(0);
+    }
+
+    public void enable () {
+        glEnableVertexAttribArray(0);
+    }
+
     public void delete () {
+        glBindVertexArray(0);
         glDeleteVertexArrays(this.vaoID);
     }
 
