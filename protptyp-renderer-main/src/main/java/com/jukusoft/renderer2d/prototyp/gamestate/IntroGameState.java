@@ -4,6 +4,7 @@ import com.jukusoft.renderer2d.prototyp.engine.app.GameApp;
 import com.jukusoft.renderer2d.prototyp.engine.gamestate.GameState;
 import com.jukusoft.renderer2d.prototyp.engine.gamestate.GameStateManager;
 import com.jukusoft.renderer2d.prototyp.engine.gamestate.impl.BasicGameState;
+import com.jukusoft.renderer2d.prototyp.engine.utils.OpenGLUtils;
 import org.apache.log4j.Logger;
 
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_DOWN;
@@ -22,6 +23,8 @@ public class IntroGameState extends BasicGameState {
         //TODO: initialize game state
 
         Logger.getRootLogger().info("IntroGameState::onInit().");
+
+        Logger.getRootLogger().debug("OpenGL Version: " + OpenGLUtils.getVersionString());
     }
 
     @Override
