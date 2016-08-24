@@ -24,6 +24,12 @@ public abstract class Asset {
     */
     public void retain () {
         this.refCount++;
+
+        //check, if asset was removed before and has to be reloaded
+        if (this.refCount == 1) {
+            //load asset
+            this.onLoad();
+        }
     }
 
     /**
@@ -66,5 +72,12 @@ public abstract class Asset {
     * cleanUp asset
     */
     protected abstract void cleanUp ();
+
+    /**
+    * will be called, if reference count is higher than 0, reload asset
+    */
+    protected void onLoad () {
+        //
+    }
 
 }
