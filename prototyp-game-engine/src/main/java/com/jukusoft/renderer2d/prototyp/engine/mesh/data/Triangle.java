@@ -46,7 +46,7 @@ public class Triangle extends Mesh {
         return new float[] {
                 v1.getX(), v1.getY(), v1.getZ(),
                 v2.getX(), v2.getY(), v2.getZ(),
-                v3.getZ(), v3.getY(), v3.getZ()
+                v3.getX(), v3.getY(), v3.getZ()
         };
     }
 
