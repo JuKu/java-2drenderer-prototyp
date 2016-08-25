@@ -11,5 +11,14 @@
 
     <artifactId>prototyp-game-engine</artifactId>
 
+    <dependencies>
+        <!-- PNG Decoder -->
+        <dependency>
+            <groupId>org.l33tlabs.twl</groupId>
+            <artifactId>pngdecoder</artifactId>
+            <version>${pngdecoder.version}</version>
+        </dependency>
+    </dependencies>
+
 
 </project>

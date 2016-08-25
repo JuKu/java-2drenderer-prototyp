@@ -20,6 +20,9 @@
         <!-- Java version -->
         <java.version>1.8</java.version>
 
+        <!-- png decoder version -->
+        <pngdecoder.version> 1.0 </pngdecoder.version>
+
         <!-- LWJGL version -->
         <lwjgl.version>3.0.0</lwjgl.version>
 
