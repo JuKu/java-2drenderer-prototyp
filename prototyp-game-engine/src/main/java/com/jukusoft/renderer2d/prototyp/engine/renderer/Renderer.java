@@ -11,6 +11,11 @@ public interface Renderer {
     public void init ();
 
     /**
+    * clear screen
+    */
+    public void clear ();
+
+    /**
     * render
     */
     public void render ();
