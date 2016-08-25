@@ -1,23 +1,25 @@
 package com.jukusoft.renderer2d.prototyp.engine.mesh;
 
-import com.jukusoft.renderer2d.prototyp.engine.utils.MeshUtils;
-
 /**
  * Created by Justin on 24.08.2016.
  */
-public abstract class Mesh {
+public class GPUMeshData<T extends Mesh> {
 
     /**
-     * local unique id of mesh
-     */
-    private long meshID = MeshUtils.generateID();
+    * instance of mesh
+    */
+    protected final T mesh;
 
-    public Mesh () {
-        //
+    public GPUMeshData (T mesh) {
+        this.mesh = mesh;
     }
 
     public long getID () {
-        return this.meshID;
+        return this.mesh.getID();
+    }
+
+    public T getMesh () {
+        return this.mesh;
     }
 
     public void cleanUp () {
