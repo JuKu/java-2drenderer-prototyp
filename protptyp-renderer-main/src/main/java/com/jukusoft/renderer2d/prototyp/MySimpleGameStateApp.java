@@ -6,6 +6,7 @@ import com.jukusoft.renderer2d.prototyp.engine.gamestate.GameState;
 import com.jukusoft.renderer2d.prototyp.engine.gamestate.GameStateManager;
 import com.jukusoft.renderer2d.prototyp.engine.window.IWindow;
 import com.jukusoft.renderer2d.prototyp.gamestate.GameState2;
+import com.jukusoft.renderer2d.prototyp.gamestate.GameState3;
 import com.jukusoft.renderer2d.prototyp.gamestate.IntroGameState;
 
 /**
@@ -26,8 +27,8 @@ public class MySimpleGameStateApp extends SimpleGameStateApp<GameState> {
         //stateManager.addGameState("intro", introGameState);
 
         //create and add new game state
-        GameState2 gameState2 = new GameState2();
-        stateManager.addGameState("intro", gameState2);
+        GameState3 gameState3 = new GameState3();
+        stateManager.addGameState("intro", gameState3);
 
         //push game state to activate game state
         try {
