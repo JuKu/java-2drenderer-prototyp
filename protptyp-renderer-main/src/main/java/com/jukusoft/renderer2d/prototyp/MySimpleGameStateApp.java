@@ -5,9 +5,7 @@ import com.jukusoft.renderer2d.prototyp.engine.exception.GameStateNotFoundExcept
 import com.jukusoft.renderer2d.prototyp.engine.gamestate.GameState;
 import com.jukusoft.renderer2d.prototyp.engine.gamestate.GameStateManager;
 import com.jukusoft.renderer2d.prototyp.engine.window.IWindow;
-import com.jukusoft.renderer2d.prototyp.gamestate.GameState2;
-import com.jukusoft.renderer2d.prototyp.gamestate.GameState3;
-import com.jukusoft.renderer2d.prototyp.gamestate.IntroGameState;
+import com.jukusoft.renderer2d.prototyp.gamestate.GameState4;
 
 /**
  * Created by Justin on 22.08.2016.
@@ -27,8 +25,8 @@ public class MySimpleGameStateApp extends SimpleGameStateApp<GameState> {
         //stateManager.addGameState("intro", introGameState);
 
         //create and add new game state
-        GameState3 gameState3 = new GameState3();
-        stateManager.addGameState("intro", gameState3);
+        GameState4 gameState4 = new GameState4();
+        stateManager.addGameState("intro", gameState4);
 
         //push game state to activate game state
         try {
