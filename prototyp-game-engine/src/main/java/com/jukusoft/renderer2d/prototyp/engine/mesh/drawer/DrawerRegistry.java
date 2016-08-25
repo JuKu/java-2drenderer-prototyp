@@ -1,5 +1,7 @@
 package com.jukusoft.renderer2d.prototyp.engine.mesh.drawer;
 
+import com.jukusoft.renderer2d.prototyp.engine.mesh.GPUMesh;
+
 import java.util.Map;
 
 /**
@@ -10,7 +12,7 @@ public class DrawerRegistry {
     /**
     * map with drawers
     */
-    protected Map<Class,Drawer> drawerMap = null;
+    protected Map<Class<GPUMesh>,Drawer> drawerMap = null;
 
     /**
     * instance of drawer registry
