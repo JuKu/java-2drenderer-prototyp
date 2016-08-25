@@ -1,7 +1,6 @@
 package com.jukusoft.renderer2d.prototyp.engine.mesh;
 
 import com.jukusoft.renderer2d.prototyp.engine.exception.MeshNotFoundException;
-import com.jukusoft.renderer2d.prototyp.engine.mesh.GPUMeshData;
 import com.jukusoft.renderer2d.prototyp.engine.utils.MeshUtils;
 
 import java.util.Map;
@@ -13,12 +12,12 @@ import java.util.concurrent.ConcurrentHashMap;
 public class MeshRegistry {
 
     /**
-    * map with GPUMeshData instances
+    * map with GPUMesh instances
     */
-    protected Map<Long,GPUMeshData> GPUMeshDataMap = new ConcurrentHashMap<>();
+    protected Map<Long,GPUMesh> GPUMeshDataMap = new ConcurrentHashMap<>();
 
     /**
-    * instance of GPUMeshData registry
+    * instance of GPUMesh registry
     */
     protected static MeshRegistry instance = null;
 
@@ -30,77 +29,77 @@ public class MeshRegistry {
     }
 
     /**
-    * put GPUMeshData to registry
+    * put GPUMesh to registry
      *
-     * @return local unique id of GPUMeshData
+     * @return local unique id of GPUMesh
     */
-    public long put (GPUMeshData GPUMeshData) {
-        //generate new local unique id of GPUMeshData
+    public long put (GPUMesh GPUMesh) {
+        //generate new local unique id of GPUMesh
         long GPUMeshDataID = MeshUtils.generateID();
 
-        //put GPUMeshData to map
-        this.GPUMeshDataMap.put(GPUMeshDataID, GPUMeshData);
+        //put GPUMesh to map
+        this.GPUMeshDataMap.put(GPUMeshDataID, GPUMesh);
 
         return GPUMeshDataID;
     }
 
     /**
-    * get GPUMeshData from registry
+    * get GPUMesh from registry
      *
-     * @param GPUMeshDataID local unique id of GPUMeshData
-     * @param GPUMeshDataClass requested class of GPUMeshData
+     * @param GPUMeshDataID local unique id of GPUMesh
+     * @param GPUMeshDataClass requested class of GPUMesh
      *
-     * @return instance of GPUMeshData
+     * @return instance of GPUMesh
     */
     public <T> T get (long GPUMeshDataID, Class<T> GPUMeshDataClass) throws MeshNotFoundException {
-        //get GPUMeshData from map
-        GPUMeshData GPUMeshData = this.GPUMeshDataMap.get(GPUMeshDataID);
+        //get GPUMesh from map
+        GPUMesh GPUMesh = this.GPUMeshDataMap.get(GPUMeshDataID);
 
-        //check, if GPUMeshData exists
-        if (GPUMeshData == null) {
-            throw new MeshNotFoundException("Couldnt find GPUMeshData with id " + GPUMeshDataID + ", requested class: " + GPUMeshDataClass.getCanonicalName() + ".");
+        //check, if GPUMesh exists
+        if (GPUMesh == null) {
+            throw new MeshNotFoundException("Couldnt find GPUMesh with id " + GPUMeshDataID + ", requested class: " + GPUMeshDataClass.getCanonicalName() + ".");
         }
 
-        //cast GPUMeshData to specific class and return instance
-        return (T) GPUMeshDataClass.cast(GPUMeshData);
+        //cast GPUMesh to specific class and return instance
+        return (T) GPUMeshDataClass.cast(GPUMesh);
     }
 
     /**
-    * remove GPUMeshData from registry
+    * remove GPUMesh from registry
      *
-     * @param GPUMeshDataID local unique id of GPUMeshData
+     * @param GPUMeshDataID local unique id of GPUMesh
     */
     public void remove (long GPUMeshDataID) {
-        //get GPUMeshData from map
-        GPUMeshData GPUMeshData = this.GPUMeshDataMap.get(GPUMeshDataID);
+        //get GPUMesh from map
+        GPUMesh GPUMesh = this.GPUMeshDataMap.get(GPUMeshDataID);
 
-        //remove GPUMeshData from map
+        //remove GPUMesh from map
         this.GPUMeshDataMap.remove(GPUMeshDataID);
 
-        //check, if GPUMeshData exists
-        if (GPUMeshData != null) {
-            //cleanUp GPUMeshData
-            GPUMeshData.cleanUp();
+        //check, if GPUMesh exists
+        if (GPUMesh != null) {
+            //cleanUp GPUMesh
+            GPUMesh.cleanUp();
         }
     }
 
     /**
-    * check, if GPUMeshData exists in registry
+    * check, if GPUMesh exists in registry
      *
-     * @param GPUMeshDataID local unique id of GPUMeshData
+     * @param GPUMeshDataID local unique id of GPUMesh
      *
-     * @return true, if GPUMeshData exists
+     * @return true, if GPUMesh exists
     */
     public boolean contains (long GPUMeshDataID) {
         return this.GPUMeshDataMap.get(GPUMeshDataID) != null;
     }
 
     /**
-    * get instance of GPUMeshData registry
+    * get instance of GPUMesh registry
      *
      * uses singleton design pattern
      *
-     * @return instance of GPUMeshData registry
+     * @return instance of GPUMesh registry
     */
     public static MeshRegistry getInstance () {
         //check, if instance is null
@@ -109,14 +108,14 @@ public class MeshRegistry {
             MeshRegistry.instance = new MeshRegistry();
         }
 
-        //return instance of GPUMeshData registry
+        //return instance of GPUMesh registry
         return MeshRegistry.instance;
     }
 
     /**
-    * set instance of GPUMeshData registry
+    * set instance of GPUMesh registry
      *
-     * @param instance instance of GPUMeshData registry
+     * @param instance instance of GPUMesh registry
     */
     public static void setInstance (MeshRegistry instance) {
         //override instance

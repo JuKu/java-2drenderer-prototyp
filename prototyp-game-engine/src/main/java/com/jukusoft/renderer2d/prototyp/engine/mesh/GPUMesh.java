@@ -3,14 +3,14 @@ package com.jukusoft.renderer2d.prototyp.engine.mesh;
 /**
  * Created by Justin on 24.08.2016.
  */
-public class GPUMeshData<T extends Mesh> {
+public class GPUMesh<T extends Mesh> {
 
     /**
     * instance of mesh
     */
     protected final T mesh;
 
-    public GPUMeshData (T mesh) {
+    public GPUMesh(T mesh) {
         this.mesh = mesh;
     }
 
