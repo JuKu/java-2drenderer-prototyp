@@ -39,7 +39,7 @@ public class GPUTriangle extends GPUMesh<Triangle> {
     }
 
     @Override
-    public void render() {
+    public void onRender() {
         //bind VAO
         this.vao.bind();
 

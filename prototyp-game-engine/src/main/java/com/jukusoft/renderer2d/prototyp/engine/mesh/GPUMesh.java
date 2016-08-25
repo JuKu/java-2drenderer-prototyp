@@ -29,7 +29,11 @@ public abstract class GPUMesh<T extends Mesh> implements AutoCloseable {
 
     public abstract void init ();
 
-    public abstract void render ();
+    public final void render () {
+        this.onRender();
+    }
+
+    protected abstract void onRender ();
 
     public abstract void cleanUp ();
 
