@@ -58,6 +58,12 @@ public class Vector3f implements Cloneable {
         this.z = z;
     }
 
+    public void set (float x, float y, float z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+
     @Override
     public Vector3f clone () {
         return new Vector3f(this.x, this.y, this.z);
