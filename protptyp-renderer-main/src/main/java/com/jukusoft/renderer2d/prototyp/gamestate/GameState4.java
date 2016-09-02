@@ -28,10 +28,15 @@ public class GameState4 extends BasicGameState {
 
     @Override
     public void render (GameApp app) {
+        //clear window
         getWindow().clear();
 
+        //check, if window was resized
         if (getWindow().wasResized()) {
+            //reset viewport
             getWindow().setViewPort(0, 0, getWindow().getWidth(), getWindow().getHeight());
+
+            //reset resized flag
             getWindow().setResizedFlag(false);
         }
     }
