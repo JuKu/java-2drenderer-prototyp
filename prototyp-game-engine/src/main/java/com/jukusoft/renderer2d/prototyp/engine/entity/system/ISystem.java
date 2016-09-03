@@ -5,6 +5,6 @@ package com.jukusoft.renderer2d.prototyp.engine.entity.system;
  */
 public interface ISystem {
 
-    public void process ();
+    //public void process ();
 
 }
