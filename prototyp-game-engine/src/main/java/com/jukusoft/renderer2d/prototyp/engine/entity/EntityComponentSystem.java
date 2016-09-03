@@ -2,6 +2,8 @@ package com.jukusoft.renderer2d.prototyp.engine.entity;
 
 import com.jukusoft.renderer2d.prototyp.engine.entity.component.IComponent;
 
+import java.util.List;
+
 /**
  * Created by Justin on 03.09.2016.
  */
@@ -57,6 +59,13 @@ public interface EntityComponentSystem {
      * @return instance of component of entity
     */
     public <T extends IComponent> T getComponent (long entityID, Class<T> cls);
+
+    /**
+    * find entities with component and return list of ids from entites
+     *
+     * @return list with entity ids which contains component
+    */
+    public List<Long> findEntitiesWithComponent (Class<? extends IComponent> cls);
 
     /**
     * generate new unique id of entity

@@ -54,7 +54,7 @@ public class ComponentGroup implements Recycleable {
      *
      * @param cls class of component
     */
-    public void remove (Class<? extends IComponent> cls) {
+    protected void remove (Class<? extends IComponent> cls) {
         this.componentMap.remove(cls);
     }
 
