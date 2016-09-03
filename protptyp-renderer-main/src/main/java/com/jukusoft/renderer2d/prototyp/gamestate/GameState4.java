@@ -1,6 +1,11 @@
 package com.jukusoft.renderer2d.prototyp.gamestate;
 
 import com.jukusoft.renderer2d.prototyp.engine.app.GameApp;
+import com.jukusoft.renderer2d.prototyp.engine.entity.DefaultEntityComponentSystem;
+import com.jukusoft.renderer2d.prototyp.engine.entity.DefaultEntitySystemManager;
+import com.jukusoft.renderer2d.prototyp.engine.entity.EntityComponentSystem;
+import com.jukusoft.renderer2d.prototyp.engine.entity.EntitySystemManager;
+import com.jukusoft.renderer2d.prototyp.engine.entity.component.Position2D;
 import com.jukusoft.renderer2d.prototyp.engine.gamestate.GameState;
 import com.jukusoft.renderer2d.prototyp.engine.gamestate.GameStateManager;
 import com.jukusoft.renderer2d.prototyp.engine.gamestate.impl.BasicGameState;
@@ -19,11 +24,41 @@ import java.nio.charset.StandardCharsets;
  */
 public class GameState4 extends BasicGameState {
 
+    /**
+    * instance of entity component system
+    */
+    protected EntityComponentSystem ecs = null;
+
+    /**
+    * instance of manager for entity systems
+    */
+    protected EntitySystemManager entitySystemManager = null;
+
+    /**
+    * unique id of player entity
+    */
+    protected long playerEntityID = 0l;
+
+    public GameState4 () {
+        //create new entity component system
+        this.ecs = new DefaultEntityComponentSystem();
+
+        //create new entity system manager
+        this.entitySystemManager = new DefaultEntitySystemManager();
+    }
+
     @Override
     public <T extends GameState> void onInit(GameStateManager<T> gameStateManager, GameApp app) {
         Logger.getRootLogger().info("GameState4::onInit().");
 
         getWindow().setClearColor(0, 0, 0, 0);
+
+        Logger.getRootLogger().info("add player entity.");
+
+        //create new player entity
+        this.playerEntityID = this.ecs.createEntity(
+                new Position2D(0, 0)
+        );
     }
 
     @Override
