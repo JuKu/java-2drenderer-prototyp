@@ -5,6 +5,7 @@ import com.jukusoft.renderer2d.prototyp.engine.entity.DefaultEntityComponentSyst
 import com.jukusoft.renderer2d.prototyp.engine.entity.DefaultEntitySystemManager;
 import com.jukusoft.renderer2d.prototyp.engine.entity.EntityComponentSystem;
 import com.jukusoft.renderer2d.prototyp.engine.entity.EntitySystemManager;
+import com.jukusoft.renderer2d.prototyp.engine.entity.component.Image;
 import com.jukusoft.renderer2d.prototyp.engine.entity.component.Position2D;
 import com.jukusoft.renderer2d.prototyp.engine.gamestate.GameState;
 import com.jukusoft.renderer2d.prototyp.engine.gamestate.GameStateManager;
@@ -57,7 +58,8 @@ public class GameState4 extends BasicGameState {
 
         //create new player entity
         this.playerEntityID = this.ecs.createEntity(
-                new Position2D(0, 0)
+                new Position2D(0, 0),
+                new Image("data/graphic/player/player.png")
         );
     }
 
