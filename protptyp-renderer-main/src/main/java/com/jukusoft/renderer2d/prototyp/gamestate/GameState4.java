@@ -7,6 +7,7 @@ import com.jukusoft.renderer2d.prototyp.engine.entity.EntityComponentSystem;
 import com.jukusoft.renderer2d.prototyp.engine.entity.EntitySystemManager;
 import com.jukusoft.renderer2d.prototyp.engine.entity.component.Image;
 import com.jukusoft.renderer2d.prototyp.engine.entity.component.Position2D;
+import com.jukusoft.renderer2d.prototyp.engine.entity.system.impl.Basic2DRenderSystem;
 import com.jukusoft.renderer2d.prototyp.engine.gamestate.GameState;
 import com.jukusoft.renderer2d.prototyp.engine.gamestate.GameStateManager;
 import com.jukusoft.renderer2d.prototyp.engine.gamestate.impl.BasicGameState;
@@ -46,6 +47,9 @@ public class GameState4 extends BasicGameState {
 
         //create new entity system manager
         this.entitySystemManager = new DefaultEntitySystemManager();
+
+        //add basic 2D render system
+        this.entitySystemManager.addSystem("BasicRenderSystem", new Basic2DRenderSystem());
     }
 
     @Override
@@ -76,6 +80,8 @@ public class GameState4 extends BasicGameState {
             //reset resized flag
             getWindow().setResizedFlag(false);
         }
+
+        //this.entitySystemManager.render(this.ecs);
     }
 
 }

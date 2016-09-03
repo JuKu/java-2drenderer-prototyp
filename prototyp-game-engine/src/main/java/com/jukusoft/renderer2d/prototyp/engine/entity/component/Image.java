@@ -21,7 +21,7 @@ public class Image implements IComponent {
     /**
     * float buffer for relative x and y position of image
     */
-    protected FloatBuffer relPosBuffer = BufferUtils.createFloatBuffer(2);
+    protected volatile FloatBuffer relPosBuffer = BufferUtils.createFloatBuffer(2);
 
     public Image (String imagePath, float relX, float relY) {
         this.imagePath = imagePath;
@@ -48,11 +48,11 @@ public class Image implements IComponent {
     }
 
     public float getRelX () {
-        return this.relPosBuffer.get(0);
+        return this.relPosBuffer.get(1);
     }
 
     public float getRelY () {
-        return this.relPosBuffer.get(1);
+        return this.relPosBuffer.get(2);
     }
 
 }
