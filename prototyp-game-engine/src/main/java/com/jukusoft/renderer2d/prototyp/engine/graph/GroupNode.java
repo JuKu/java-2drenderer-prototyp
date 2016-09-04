@@ -47,6 +47,15 @@ public class GroupNode<T extends Node> extends Node {
     }
 
     /**
+    * check, if group node has child nodes
+     *
+     * @return true, if group node has child nodes
+    */
+    public boolean hasChildNode () {
+        return this.childNodes.size() > 0;
+    }
+
+    /**
     * process graph recursive
     */
     @Override
