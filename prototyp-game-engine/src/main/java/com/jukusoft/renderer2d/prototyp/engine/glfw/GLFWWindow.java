@@ -118,7 +118,7 @@ public class GLFWWindow implements IWindow {
         this.monitor = NULL;//glfwGetPrimaryMonitor();
 
         //create GLFW window
-        this.window = glfwCreateWindow(this.width, this.width, this.title, this.monitor, NULL);
+        this.window = glfwCreateWindow(this.width, this.height, this.title, this.monitor, NULL);
 
         //check, if error occours while creating window
         if (window == NULL) {
